@@ -1,0 +1,212 @@
+{
+    "Login":[
+      {
+        "id":1,
+        "username":"admin",
+        "password":"admin"
+      }
+    ],
+    "Medicine":[
+      {
+        "id":1,
+        "name":"Amlodipine"
+      }
+    ],
+    "Client":[
+      {
+        "id":1,
+        "name":"aziza"
+      }
+    ],
+    "PaymentType":[
+      {
+        "id":1,
+        "name":"Karta"
+      }
+    ],
+    "Import": [
+        {
+            "id": 1,
+            "name": "Parasitamol",
+            "cost": 1000,
+            "fromWhere": "fergana",
+            "toWhere": "Tashkent",
+            "sold": 12
+        },
+        {
+            "id": 2,
+            "name": "Ibuprofen",
+            "cost": 1500,
+            "fromWhere": "Tashkent",
+            "toWhere": "Samarqand",
+            "sold": 10
+        },
+        {
+            "id": 3,
+            "name": "Amoxicillin",
+            "cost": 2000,
+            "fromWhere": "Bukhara",
+            "toWhere": "Tashkent",
+            "sold": 20
+        },
+        {
+            "id": 4,
+            "name": "Cetirizine",
+            "cost": 1200,
+            "fromWhere": "Namangan",
+            "toWhere": "Fergana",
+            "sold": 15
+        },
+        {
+            "id": 5,
+            "name": "Metformin",
+            "cost": 1800,
+            "fromWhere": "Andijan",
+            "toWhere": "Tashkent",
+            "sold": 25
+        },
+        {
+            "id": 6,
+            "name": "Amlodipine",
+            "cost": 1600,
+            "fromWhere": "Samarqand",
+            "toWhere": "Bukhara",
+            "sold": 18
+        },
+        {
+            "id": 7,
+            "name": "Atorvastatin",
+            "cost": 2100,
+            "fromWhere": "Fergana",
+            "toWhere": "Andijan",
+            "sold": 12
+        },
+        {
+            "id": 8,
+            "name": "Lisinopril",
+            "cost": 1900,
+            "fromWhere": "Kokand",
+            "toWhere": "Tashkent",
+            "sold": 30
+        },
+        {
+            "id": 9,
+            "name": "Omeprazole",
+            "cost": 1100,
+            "fromWhere": "Margilan",
+            "toWhere": "Namangan",
+            "sold": 22
+        },
+        {
+            "id": 10,
+            "name": "Losartan",
+            "cost": 1700,
+            "fromWhere": "Nukus",
+            "toWhere": "Fergana",
+            "sold": 17
+        }
+    ],
+    "ImportHolder":[
+        {
+            "id": 10,
+            "name": "Losartan",
+            "cost": 1700,
+            "fromWhere": "Nukus",
+            "toWhere": "Fergana",
+            "sold": 17
+        }
+    ],
+    "Export": [
+        {
+            "id": 1,
+            "name": "Parasitamol",
+            "cost": 1000,
+            "fromWhere": "fergana",
+            "toWhere": "Tashkent",
+            "sold": 12
+        },
+        {
+            "id": 2,
+            "name": "Ibuprofen",
+            "cost": 1500,
+            "fromWhere": "Tashkent",
+            "toWhere": "Samarqand",
+            "sold": 10
+        },
+        {
+            "id": 3,
+            "name": "Amoxicillin",
+            "cost": 2000,
+            "fromWhere": "Bukhara",
+            "toWhere": "Tashkent",
+            "sold": 20
+        },
+        {
+            "id": 4,
+            "name": "Cetirizine",
+            "cost": 1200,
+            "fromWhere": "Namangan",
+            "toWhere": "Fergana",
+            "sold": 15
+        },
+        {
+            "id": 5,
+            "name": "Metformin",
+            "cost": 1800,
+            "fromWhere": "Andijan",
+            "toWhere": "Tashkent",
+            "sold": 25
+        },
+        {
+            "id": 6,
+            "name": "Amlodipine",
+            "cost": 1600,
+            "fromWhere": "Samarqand",
+            "toWhere": "Bukhara",
+            "sold": 18
+        },
+        {
+            "id": 7,
+            "name": "Atorvastatin",
+            "cost": 2100,
+            "fromWhere": "Fergana",
+            "toWhere": "Andijan",
+            "sold": 12
+        },
+        {
+            "id": 8,
+            "name": "Lisinopril",
+            "cost": 1900,
+            "fromWhere": "Kokand",
+            "toWhere": "Tashkent",
+            "sold": 30
+        },
+        {
+            "id": 9,
+            "name": "Omeprazole",
+            "cost": 1100,
+            "fromWhere": "Margilan",
+            "toWhere": "Namangan",
+            "sold": 22
+        },
+        {
+            "id": 10,
+            "name": "Losartan",
+            "cost": 1700,
+            "fromWhere": "Nukus",
+            "toWhere": "Fergana",
+            "sold": 17
+        }
+    ],
+    "ExportHolder":[
+        {
+            "id": 10,
+            "name": "Losartan",
+            "cost": 1700,
+            "fromWhere": "Nukus",
+            "toWhere": "Fergana",
+            "sold": 17
+        }
+    ]
+}
+   
