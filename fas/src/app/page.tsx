@@ -50,14 +50,14 @@ export default function Home() {
             <div className="mt-8 lg:mt-24">
                 <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center w-full gap-6">
                     <div className="flex flex-col items-center justify-center w-full gap-1">
-                        <label htmlFor="login" className="text-xs text-start w-full">Логин</label>
-                        <input type="text" name="login" id="login" className="border-black border-2 rounded-lg text-xl w-full p-2" />
+                        <label htmlFor="login" className="text-xs text-start w-full font-semibold">Логин</label>
+                        <input type="text" name="login" id="login" className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2" />
                     </div>
                     <div className="flex flex-col items-center justify-center w-full gap-1">
-                        <label htmlFor="password" className="text-xs text-start w-full">Пароль</label>
-                        <input type="password" name="password" id="password" className="border-black border-2 rounded-lg text-xl w-full p-2" />
+                        <label htmlFor="password" className="text-xs text-start w-full font-semibold">Пароль</label>
+                        <input type="password" name="password" id="password" className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2" />
                     </div>
-                    <div className="flex flex-col items-center justify-center w-full">
+                    <div className="flex flex-col items-center justify-center w-full font-semibold">
                         <button type="submit" className="border-[#0D1633] bg-[#0D1633] border-2 rounded-lg text-white text-xl w-full mt-4 p-2">Войти</button>
                     </div>
                 </form>
