@@ -1,28 +1,28 @@
 {
-    "Login":[
-      {
-        "id":1,
-        "username":"admin",
-        "password":"admin"
-      }
+    "Login": [
+        {
+            "id": 1,
+            "username": "admin",
+            "password": "admin"
+        }
     ],
-    "Medicine":[
-      {
-        "id":1,
-        "name":"Amlodipine"
-      }
+    "Medicine": [
+        {
+            "id": 1,
+            "name": "Amlodipine"
+        }
     ],
-    "Client":[
-      {
-        "id":1,
-        "name":"aziza"
-      }
+    "Client": [
+        {
+            "id": 1,
+            "name": "aziza"
+        }
     ],
-    "PaymentType":[
-      {
-        "id":1,
-        "name":"Karta"
-      }
+    "PaymentType": [
+        {
+            "id": 1,
+            "name": "Karta"
+        }
     ],
     "Import": [
         {
@@ -106,7 +106,7 @@
             "sold": 17
         }
     ],
-    "ImportHolder":[
+    "ImportHolder": [
         {
             "id": 10,
             "name": "Losartan",
@@ -198,7 +198,7 @@
             "sold": 17
         }
     ],
-    "ExportHolder":[
+    "ExportHolder": [
         {
             "id": 10,
             "name": "Losartan",
@@ -209,4 +209,3 @@
         }
     ]
 }
-   
