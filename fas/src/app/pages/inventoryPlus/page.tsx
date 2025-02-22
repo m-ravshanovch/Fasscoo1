@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Home() {
     return (
-        <div className="flex justify-center items-center h-screen w-screen">
+        <div className="flex justify-center items-center h-[80vh] w-screen">
             <button type="button" className="absolute top-0 left-0 m-4">
                 <Link href="/pages/inventory">
                     <Image src="/back-button.png" width={48} height={48} alt="back button"></Image>

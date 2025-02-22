@@ -14,7 +14,7 @@ export default function Home() {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
-        axios.get("http://192.168.180.86:5000/Login")
+        axios.get("http://172.20.10.2:5000/Login")
             .then((res) => setUsers(res.data))
             .catch((err) => console.error(err));
     }, []);
@@ -24,7 +24,7 @@ export default function Home() {
     const router = useRouter();
 
     const handleRedirect = () => {
-        router.push("/pages/inventory");
+        router.push("/pages/inventory/");
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -35,8 +35,7 @@ export default function Home() {
         if (login === username && pass === password) {
             handleRedirect();
         } else {
-            alert(username);
-            alert(password);
+            alert("try again");
         }
     }
 
