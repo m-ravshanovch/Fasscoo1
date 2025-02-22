@@ -23,8 +23,8 @@ export default function Home() {
             <div className="w-full place-items-center">
                 <div className="font-bold text-4xl text-center ">СКЛАД</div>
                 <div className="flex gap-x-5 justify-center mt-4">
-                    <button className="px-1 bg-[#0D1633] text-white rounded-md"><Link href={'/pages/coming'} className="w-44 text-xl py-1 block active:opacity-80">приход</Link></button>
-                    <button className="px-3 bg-[#0D1633] text-white rounded-md"><Link href={'/pages/products'} className="w-44 text-xl py-1 block active:opacity-80">продажа</Link></button>
+                    <button className="px-1 bg-[#0D1633] text-white rounded-md"><Link href={'/pages/coming/'} className="w-44 text-xl py-1 block active:opacity-80">приход</Link></button>
+                    <button className="px-3 bg-[#0D1633] text-white rounded-md"><Link href={'/pages/products/'} className="w-44 text-xl py-1 block active:opacity-80">продажа</Link></button>
                 </div>
             </div>
             <div className="w-full flex justify-center ">
