@@ -18,7 +18,7 @@ export default function Home() {
     }[]>([])
 
     useEffect(() => {
-        axios.get("http://172.18.0.55:5000/Export/")
+        axios.get("http://172.20.10.2:5000/Export/")
             .then((res) => {
                 setImportData(res.data)
                 console.log(res.data)
@@ -70,7 +70,7 @@ export default function Home() {
                     />
 
                     <button className="px-3 bg-[#0D1633] text-white rounded-md">
-                        <Link href={'/pages/inventory/coming/comingAdd'} className="w-44 text-xl py-1 block active:opacity-80">
+                        <Link href={'/pages/inventory/products/productsAdd'} className="w-44 text-xl py-1 block active:opacity-80">
                             добавить
                         </Link>
                     </button>
