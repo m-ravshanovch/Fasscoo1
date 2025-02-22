@@ -61,7 +61,7 @@ export default function Home() {
             <div className="w-full place-items-center">
                 <div className="flex gap-x-5 justify-center mt-4">
                     <input
-                        type="date"
+                        type="text" // Changed from "date" to "text"
                         placeholder="Фильтр по дате"
                         onChange={e => setDateFilter(e.target.value)}
                         className="border-2 border-[#0D1633] border-solid rounded-md w-64 py-1 text-center"
