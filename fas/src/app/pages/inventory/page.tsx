@@ -6,10 +6,10 @@ export default function Home() {
     const [search,setSearch]=useState("")
     const [importData, setImportData] = useState<{ id: number, name: string, cost: number, fromWhere: string, toWhere: string, sold: number }[]>([])
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import/").then((res) => {
+        axios.get("http://172.18.0.55:5000/Import/").then((res) => {
             setImportData(res.data)
         }).catch((err) => {
-            console.log(err.data)
+            console.log(err)
         })
     }, [])
     const filteredData = importData.filter((item)=>(

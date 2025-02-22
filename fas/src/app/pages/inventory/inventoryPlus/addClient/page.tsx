@@ -3,60 +3,75 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
-interface ClientObject {
-    items: string[];
+interface Client {
+    id: number;
+    name: string;
 }
 
 export default function MedicinesPage() {
     const [clientName, setClientName] = useState("");
-    const [clients, setClients] = useState<ClientObject>({ items: [] });
-    const [editingIndex, setEditingIndex] = useState<number | null>(null);
+    const [clients, setClients] = useState<Client[]>([]);
+    const [editingId, setEditingId] = useState<number | null>(null);
+    const API_URL = "http://172.18.0.55:5000/Client";
+
+    // Fetch clients on component mount
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const data = localStorage.getItem("myClients");
-            if (data) {
-                setClients(JSON.parse(data));
+        fetchClients();
+    }, []);
+
+    const fetchClients = async () => {
+        try {
+            const response = await axios.get(API_URL);
+            setClients(response.data);
+        } catch (error) {
+            console.error("Error fetching clients:", error);
+        }
+    };
+
+    const handleAdd = async () => {
+        if (clientName.trim()) {
+            try {
+                const newClient = {
+                    name: clientName.trim()
+                };
+                await axios.post(API_URL, newClient);
+                setClientName("");
+                fetchClients(); // Refresh the list
+            } catch (error) {
+                console.error("Error adding client:", error);
             }
         }
-    }, []);
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            localStorage.setItem("myClients", JSON.stringify(clients));
-        }
-    }, [clients]);
+    };
 
-    const handleAdd = () => {
-        if (clientName.trim()) {
-            setClients((prev) => ({
-                ...prev,
-                items: [...prev.items, clientName.trim()],
-            }));
-            setClientName("");
+    const handleRemove = async (id: number) => {
+        try {
+            await axios.delete(`${API_URL}/${id}`);
+            fetchClients(); // Refresh the list
+        } catch (error) {
+            console.error("Error removing client:", error);
         }
     };
 
-    const handleRemove = (index: number) => {
-        setClients((prev) => ({
-            ...prev,
-            items: prev.items.filter((_, i) => i !== index),
-        }));
+    const handleEdit = (client: Client) => {
+        setEditingId(client.id);
+        setClientName(client.name);
     };
 
-    const handleEdit = (index: number) => {
-        setEditingIndex(index);
-        setClientName(clients.items[index]);
-    };
-
-    const handleUpdate = () => {
-        if (editingIndex !== null && clientName.trim()) {
-            setClients((prev) => {
-                const updatedItems = [...prev.items];
-                updatedItems[editingIndex] = clientName.trim();
-                return { ...prev, items: updatedItems };
-            });
-            setClientName("");
-            setEditingIndex(null);
+    const handleUpdate = async () => {
+        if (editingId !== null && clientName.trim()) {
+            try {
+                await axios.put(`${API_URL}/${editingId}`, {
+                    id: editingId,
+                    name: clientName.trim()
+                });
+                setClientName("");
+                setEditingId(null);
+                fetchClients(); // Refresh the list
+            } catch (error) {
+                console.error("Error updating client:", error);
+            }
         }
     };
 
@@ -64,7 +79,7 @@ export default function MedicinesPage() {
         <div className="flex flex-col items-center justify-center w-screen h-[80vh] p-6">
             <div className="absolute top-4 right-4">
                 <Link href="/pages/inventory/inventoryPlus/">
-                    <Image src="/back-button.png" width={32} height={32} alt="back-button"></Image>
+                    <Image src="/back-button.png" width={32} height={32} alt="back-button" />
                 </Link>
             </div>
             <h1 className="text-2xl font-bold mb-4">Добавить клиент</h1>
@@ -77,7 +92,7 @@ export default function MedicinesPage() {
                     className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2 font-semibold"
                     placeholder="Введите название..."
                 />
-                {editingIndex === null ? (
+                {editingId === null ? (
                     <button
                         onClick={handleAdd}
                         className="border-[#0D1633] bg-[#0D1633] border-2 rounded-lg text-white text-sm w-1/3"
@@ -94,25 +109,21 @@ export default function MedicinesPage() {
                 )}
             </div>
 
-            <p className="mb-2">Количество клиентов: {clients.items.length}</p>
+            <p className="mb-2">Количество клиентов: {clients.length}</p>
 
             <ul className="list-decimal list-inside w-full max-w-md">
-                {clients.items.map((item, index) => (
+                {clients.map((client) => (
                     <li
-                        key={index}
+                        key={client.id}
                         className="flex justify-between items-center mb-2 bg-gray-100 p-2 rounded"
                     >
-                        <span className="mr-4 text-xl font-semibold">{item}</span>
+                        <span className="mr-4 text-xl font-semibold">{client.name}</span>
                         <div className="space-x-2">
-                            <button
-                                onClick={() => handleEdit(index)}
-                            >
-                                <Image src="/edit.png" width={32} height={32} alt="edit"></Image>
+                            <button onClick={() => handleEdit(client)}>
+                                <Image src="/edit.png" width={32} height={32} alt="edit" />
                             </button>
-                            <button
-                                onClick={() => handleRemove(index)}
-                            >
-                                <Image src="/delete.png" width={32} height={32} alt="delete"></Image>
+                            <button onClick={() => handleRemove(client.id)}>
+                                <Image src="/delete.png" width={32} height={32} alt="delete" />
                             </button>
                         </div>
                     </li>

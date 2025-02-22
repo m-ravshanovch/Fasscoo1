@@ -1,36 +1,40 @@
 {
   "Login": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "password": "admin"
     }
   ],
   "Medicine": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Amlodipine"
     },
     {
-      "id": 2,
-      "name": "Cetirizine"
+      "id": "5efa",
+      "name": "taylolhot"
     }
   ],
   "Client": [
     {
-      "id": 1,
-      "name": "aziza"
+      "id": "2732",
+      "name": "aziz"
     }
   ],
   "PaymentType": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Karta"
+    },
+    {
+      "id": "c225",
+      "name": "naqd"
     }
   ],
   "Import": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Parasitamol",
       "sell": 1500,
       "cost": 1000,
@@ -38,7 +42,7 @@
       "date": "2021-06-01"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Ibuprofen",
       "sell": 2000,
       "cost": 1500,
@@ -46,7 +50,7 @@
       "date": "2021-06-02"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Amoxicillin",
       "sell": 2500,
       "cost": 2000,
@@ -54,7 +58,7 @@
       "date": "2021-06-03"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Cetirizine",
       "sell": 1600,
       "cost": 1200,
@@ -62,7 +66,7 @@
       "date": "2021-06-04"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Metformin",
       "sell": 2300,
       "cost": 1800,
@@ -70,7 +74,7 @@
       "date": "2021-06-05"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Amlodipine",
       "sell": 2100,
       "cost": 1600,
@@ -78,7 +82,7 @@
       "date": "2021-06-06"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Atorvastatin",
       "sell": 2700,
       "cost": 2100,
@@ -86,7 +90,7 @@
       "date": "2021-06-07"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Lisinopril",
       "sell": 2400,
       "cost": 1900,
@@ -94,7 +98,7 @@
       "date": "2021-06-08"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Omeprazole",
       "sell": 1500,
       "cost": 1100,
@@ -102,17 +106,42 @@
       "date": "2021-06-09"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Losartan",
       "sell": 2200,
       "cost": 1700,
       "sold": 17,
       "date": "2021-06-10"
+    },
+    {
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "d68c",
+      "name": "b",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "7804",
+      "name": "c",
+      "quantity": 2,
+      "purchasePrice": 2,
+      "sellingPrice": 2,
+      "sum": 2,
+      "date": "2025-02-22"
     }
   ],
   "ImportHolder": [
     {
-      "id": 10,
+      "id": "10",
       "name": "Losartan",
       "cost": 1700,
       "fromWhere": "Nukus",
@@ -122,7 +151,7 @@
   ],
   "Export": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Parasitamol",
       "cost": 1000,
       "sold": 12,
@@ -131,7 +160,7 @@
       "date": "2021-01-06"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Ibuprofen",
       "cost": 1500,
       "sold": 15,
@@ -140,7 +169,7 @@
       "date": "2021-02-06"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Amoxicillin",
       "cost": 2000,
       "sold": 20,
@@ -149,7 +178,7 @@
       "date": "2021-03-06"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Cetirizine",
       "cost": 1200,
       "sold": 8,
@@ -158,7 +187,7 @@
       "date": "2021-04-06"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Metformin",
       "cost": 1800,
       "sold": 25,
@@ -167,7 +196,7 @@
       "date": "2021-05-06"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Amlodipine",
       "cost": 1600,
       "sold": 18,
@@ -176,7 +205,7 @@
       "date": "2021-06-06"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Atorvastatin",
       "cost": 2100,
       "sold": 14,
@@ -185,7 +214,7 @@
       "date": "2021-07-06"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Lisinopril",
       "cost": 1900,
       "sold": 22,
@@ -194,7 +223,7 @@
       "date": "2021-08-06"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Omeprazole",
       "cost": 1100,
       "sold": 16,
@@ -203,7 +232,7 @@
       "date": "2021-09-06"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Losartan",
       "cost": 1700,
       "sold": 17,
@@ -214,225 +243,41 @@
   ],
   "ExportHolder": [
     {
-      "id": 1,
+      "id": "10",
       "name": "Losartan",
       "cost": 1700,
-      "sold": 17,
-      "sell": 2300,
-      "client": "aziza",
-      "paymentType": "Karta",
-      "date": "2021-01-06"
+      "fromWhere": "Nukus",
+      "toWhere": "Fergana",
+      "sold": 17
+    }
+  ],
+  "comingAdd": [
+    {
+      "id": "d91c",
+      "name": "a",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
     },
     {
-      "id": 2,
-      "name": "Cetirizine",
-      "cost": 1200,
-      "sold": 17,
-      "sell": 2300,
-      "client": "aziza",
-      "paymentType": "Karta",
-      "date": "2021-01-08"
+      "id": "d68c",
+      "name": "b",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
     },
     {
-      "id": "1c57",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": "",
-      "": "2021-04-06"
-    },
-    {
-      "id": "dca8",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "b4b2",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "fc78",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "0753",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "f47c",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "0a88",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "8d1c",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "8a20",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "454d",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "d8f7",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "3f72",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "69ee",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "0632",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "8223",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "bd3f",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "4daf",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "949b",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "73e8",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": "",
-      "": "2021-03-05"
-    },
-    {
-      "id": "2860",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "b47b",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": ""
-    },
-    {
-      "id": "fa8d",
-      "name": "",
-      "sold": 0,
-      "cost": 0,
-      "client": "",
-      "paymentType": "",
-      "date": "",
-      "": "2021-03-06"
+      "id": "7804",
+      "name": "c",
+      "quantity": 2,
+      "purchasePrice": 2,
+      "sellingPrice": 2,
+      "sum": 2,
+      "date": "2025-02-22"
     }
   ]
 }

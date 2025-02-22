@@ -3,62 +3,75 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
-interface PaymentTypeObject {
-    items: string[];
+interface PaymentType {
+    id: number;
+    name: string;
 }
 
-export default function MedicinesPage() {
-    const [paymentType, setPaymentType] = useState("");
-    const [paymentTypes, setPaymentTypes] = useState<PaymentTypeObject>({ items: [] });
-    const [editingIndex, setEditingIndex] = useState<number | null>(null);
-    
+export default function PaymentTypePage() {
+    const [paymentTypeName, setPaymentTypeName] = useState("");
+    const [paymentTypes, setPaymentTypes] = useState<PaymentType[]>([]);
+    const [editingId, setEditingId] = useState<number | null>(null);
+    const API_URL = "http://172.18.0.55:5000/PaymentType";
+
+    // Fetch payment types on component mount
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const data = localStorage.getItem("myPaymentTypes");
-            if (data) {
-                setPaymentTypes(JSON.parse(data));
+        fetchPaymentTypes();
+    }, []);
+
+    const fetchPaymentTypes = async () => {
+        try {
+            const response = await axios.get(API_URL);
+            setPaymentTypes(response.data);
+        } catch (error) {
+            console.error("Error fetching payment types:", error);
+        }
+    };
+
+    const handleAdd = async () => {
+        if (paymentTypeName.trim()) {
+            try {
+                const newPaymentType = {
+                    name: paymentTypeName.trim()
+                };
+                await axios.post(API_URL, newPaymentType);
+                setPaymentTypeName("");
+                fetchPaymentTypes(); // Refresh the list
+            } catch (error) {
+                console.error("Error adding payment type:", error);
             }
         }
-    }, []);
-    
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            localStorage.setItem("myPaymentTypes", JSON.stringify(paymentTypes));
-        }
-    }, [paymentTypes]);
+    };
 
-    const handleAdd = () => {
-        if (paymentType.trim()) {
-            setPaymentTypes((prev) => ({
-                ...prev,
-                items: [...prev.items, paymentType.trim()],
-            }));
-            setPaymentType("");
+    const handleRemove = async (id: number) => {
+        try {
+            await axios.delete(`${API_URL}/${id}`);
+            fetchPaymentTypes(); // Refresh the list
+        } catch (error) {
+            console.error("Error removing payment type:", error);
         }
     };
 
-    const handleRemove = (index: number) => {
-        setPaymentTypes((prev) => ({
-            ...prev,
-            items: prev.items.filter((_, i) => i !== index),
-        }));
+    const handleEdit = (paymentType: PaymentType) => {
+        setEditingId(paymentType.id);
+        setPaymentTypeName(paymentType.name);
     };
 
-    const handleEdit = (index: number) => {
-        setEditingIndex(index);
-        setPaymentType(paymentTypes.items[index]);
-    };
-
-    const handleUpdate = () => {
-        if (editingIndex !== null && paymentType.trim()) {
-            setPaymentTypes((prev) => {
-                const updatedItems = [...prev.items];
-                updatedItems[editingIndex] = paymentType.trim();
-                return { ...prev, items: updatedItems };
-            });
-            setPaymentType("");
-            setEditingIndex(null);
+    const handleUpdate = async () => {
+        if (editingId !== null && paymentTypeName.trim()) {
+            try {
+                await axios.put(`${API_URL}/${editingId}`, {
+                    id: editingId,
+                    name: paymentTypeName.trim()
+                });
+                setPaymentTypeName("");
+                setEditingId(null);
+                fetchPaymentTypes(); // Refresh the list
+            } catch (error) {
+                console.error("Error updating payment type:", error);
+            }
         }
     };
 
@@ -74,12 +87,12 @@ export default function MedicinesPage() {
             <div className="flex flex-col justify-center items-end space-y-2 mb-4">
                 <input
                     type="text"
-                    value={paymentType}
-                    onChange={(e) => setPaymentType(e.target.value)}
+                    value={paymentTypeName}
+                    onChange={(e) => setPaymentTypeName(e.target.value)}
                     className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2 font-semibold"
                     placeholder="Введите название..."
                 />
-                {editingIndex === null ? (
+                {editingId === null ? (
                     <button
                         onClick={handleAdd}
                         className="border-[#0D1633] bg-[#0D1633] border-2 rounded-lg text-white text-sm w-1/3"
@@ -96,20 +109,20 @@ export default function MedicinesPage() {
                 )}
             </div>
 
-            <p className="mb-2">Количество тип оплаты: {paymentTypes.items.length}</p>
+            <p className="mb-2">Количество типов оплаты: {paymentTypes.length}</p>
 
             <ul className="list-decimal list-inside w-full max-w-md">
-                {paymentTypes.items.map((item, index) => (
+                {paymentTypes.map((paymentType) => (
                     <li
-                        key={index}
+                        key={paymentType.id}
                         className="flex justify-between items-center mb-2 bg-gray-100 p-2 rounded"
                     >
-                        <span className="mr-4 text-xl font-semibold">{item}</span>
+                        <span className="mr-4 text-xl font-semibold">{paymentType.name}</span>
                         <div className="space-x-2">
-                            <button onClick={() => handleEdit(index)}>
+                            <button onClick={() => handleEdit(paymentType)}>
                                 <Image src="/edit.png" width={32} height={32} alt="edit" />
                             </button>
-                            <button onClick={() => handleRemove(index)}>
+                            <button onClick={() => handleRemove(paymentType.id)}>
                                 <Image src="/delete.png" width={32} height={32} alt="delete" />
                             </button>
                         </div>
