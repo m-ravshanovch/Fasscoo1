@@ -1,221 +1,285 @@
 {
-    "Login": [
-        {
-            "id": 1,
-            "username": "admin",
-            "password": "admin"
-        }
-    ],
-    "Medicine": [
-        {
-            "id": 1,
-            "name": "Amlodipine"
-        }
-    ],
-    "Client": [
-        {
-            "id": 1,
-            "name": "aziza"
-        }
-    ],
-    "PaymentType": [
-        {
-            "id": 1,
-            "name": "Karta"
-        }
-    ],
-    "Import": [
-        {
-            "id": 1,
-            "name": "Parasitamol",
-            "sell": 1500,
-            "cost": 1000,
-            "sold": 12,
-            "date": "2021-06-01"
-        },
-        {
-            "id": 2,
-            "name": "Ibuprofen",
-            "sell": 2000,
-            "cost": 1500,
-            "sold": 10,
-            "date": "2021-06-02"
-        },
-        {
-            "id": 3,
-            "name": "Amoxicillin",
-            "sell": 2500,
-            "cost": 2000,
-            "sold": 20,
-            "date": "2021-06-03"
-        },
-        {
-            "id": 4,
-            "name": "Cetirizine",
-            "sell": 1600,
-            "cost": 1200,
-            "sold": 15,
-            "date": "2021-06-04"
-        },
-        {
-            "id": 5,
-            "name": "Metformin",
-            "sell": 2300,
-            "cost": 1800,
-            "sold": 25,
-            "date": "2021-06-05"
-        },
-        {
-            "id": 6,
-            "name": "Amlodipine",
-            "sell": 2100,
-            "cost": 1600,
-            "sold": 18,
-            "date": "2021-06-06"
-        },
-        {
-            "id": 7,
-            "name": "Atorvastatin",
-            "sell": 2700,
-            "cost": 2100,
-            "sold": 12,
-            "date": "2021-06-07"
-        },
-        {
-            "id": 8,
-            "name": "Lisinopril",
-            "sell": 2400,
-            "cost": 1900,
-            "sold": 30,
-            "date": "2021-06-08"
-        },
-        {
-            "id": 9,
-            "name": "Omeprazole",
-            "sell": 1500,
-            "cost": 1100,
-            "sold": 22,
-            "date": "2021-06-09"
-        },
-        {
-            "id": 10,
-            "name": "Losartan",
-            "sell": 2200,
-            "cost": 1700,
-            "sold": 17,
-            "date": "2021-06-10"
-        }
-    ],
-    "ImportHolder": [
-        {
-            "id": 10,
-            "name": "Losartan",
-            "cost": 1700,
-            "fromWhere": "Nukus",
-            "toWhere": "Fergana",
-            "sold": 17
-        }
-    ],
-    "Export": [
-        {
-            "id": 1,
-            "name": "Parasitamol",
-            "cost": 1000,
-            "sold": 12,
-            "client": "aziza",
-            "paymentType": "Karta",
-            "date": "2021-01-06"
-        },
-        {
-            "id": 2,
-            "name": "Ibuprofen",
-            "cost": 1500,
-            "sold": 15,
-            "client": "malik",
-            "paymentType": "Naqd",
-            "date": "2021-02-06"
-        },
-        {
-            "id": 3,
-            "name": "Amoxicillin",
-            "cost": 2000,
-            "sold": 20,
-            "client": "sara",
-            "paymentType": "Karta",
-            "date": "2021-03-06"
-        },
-        {
-            "id": 4,
-            "name": "Cetirizine",
-            "cost": 1200,
-            "sold": 8,
-            "client": "dilshod",
-            "paymentType": "Naqd",
-            "date": "2021-04-06"
-        },
-        {
-            "id": 5,
-            "name": "Metformin",
-            "cost": 1800,
-            "sold": 25,
-            "client": "kamola",
-            "paymentType": "Karta",
-            "date": "2021-05-06"
-        },
-        {
-            "id": 6,
-            "name": "Amlodipine",
-            "cost": 1600,
-            "sold": 18,
-            "client": "jasur",
-            "paymentType": "Naqd",
-            "date": "2021-06-06"
-        },
-        {
-            "id": 7,
-            "name": "Atorvastatin",
-            "cost": 2100,
-            "sold": 14,
-            "client": "nodira",
-            "paymentType": "Karta",
-            "date": "2021-07-06"
-        },
-        {
-            "id": 8,
-            "name": "Lisinopril",
-            "cost": 1900,
-            "sold": 22,
-            "client": "furqat",
-            "paymentType": "Naqd",
-            "date": "2021-08-06"
-        },
-        {
-            "id": 9,
-            "name": "Omeprazole",
-            "cost": 1100,
-            "sold": 16,
-            "client": "zuhra",
-            "paymentType": "Karta",
-            "date": "2021-09-06"
-        },
-        {
-            "id": 10,
-            "name": "Losartan",
-            "cost": 1700,
-            "sold": 17,
-            "client": "shohruh",
-            "paymentType": "Naqd",
-            "date": "2021-10-06"
-        }
-    ],
-    "ExportHolder": [
-        {
-            "id": 10,
-            "name": "Losartan",
-            "cost": 1700,
-            "fromWhere": "Nukus",
-            "toWhere": "Fergana",
-            "sold": 17
-        }
-    ]
+  "Login": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin"
+    }
+  ],
+  "Medicine": [
+    {
+      "id": "1",
+      "name": "Amlodipine"
+    },
+    {
+      "id": "5efa",
+      "name": "taylolhot"
+    }
+  ],
+  "Client": [
+    {
+      "id": "2732",
+      "name": "aziz"
+    }
+  ],
+  "PaymentType": [
+    {
+      "id": "1",
+      "name": "Karta"
+    },
+    {
+      "id": "c225",
+      "name": "naqd"
+    }
+  ],
+  "Import": [
+    {
+      "id": "1",
+      "name": "Parasitamol",
+      "sell": 1500,
+      "cost": 1000,
+      "sold": 12,
+      "date": "2021-06-01"
+    },
+    {
+      "id": "2",
+      "name": "Ibuprofen",
+      "sell": 2000,
+      "cost": 1500,
+      "sold": 10,
+      "date": "2021-06-02"
+    },
+    {
+      "id": "3",
+      "name": "Amoxicillin",
+      "sell": 2500,
+      "cost": 2000,
+      "sold": 20,
+      "date": "2021-06-03"
+    },
+    {
+      "id": "4",
+      "name": "Cetirizine",
+      "sell": 1600,
+      "cost": 1200,
+      "sold": 15,
+      "date": "2021-06-04"
+    },
+    {
+      "id": "5",
+      "name": "Metformin",
+      "sell": 2300,
+      "cost": 1800,
+      "sold": 25,
+      "date": "2021-06-05"
+    },
+    {
+      "id": "6",
+      "name": "Amlodipine",
+      "sell": 2100,
+      "cost": 1600,
+      "sold": 18,
+      "date": "2021-06-06"
+    },
+    {
+      "id": "7",
+      "name": "Atorvastatin",
+      "sell": 2700,
+      "cost": 2100,
+      "sold": 12,
+      "date": "2021-06-07"
+    },
+    {
+      "id": "8",
+      "name": "Lisinopril",
+      "sell": 2400,
+      "cost": 1900,
+      "sold": 30,
+      "date": "2021-06-08"
+    },
+    {
+      "id": "9",
+      "name": "Omeprazole",
+      "sell": 1500,
+      "cost": 1100,
+      "sold": 22,
+      "date": "2021-06-09"
+    },
+    {
+      "id": "10",
+      "name": "Losartan",
+      "sell": 2200,
+      "cost": 1700,
+      "sold": 17,
+      "date": "2021-06-10"
+    },
+    {
+      "id": "d91c",
+      "name": "a",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "d68c",
+      "name": "b",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "7804",
+      "name": "c",
+      "quantity": 2,
+      "purchasePrice": 2,
+      "sellingPrice": 2,
+      "sum": 2,
+      "date": "2025-02-22"
+    }
+  ],
+  "ImportHolder": [
+    {
+      "id": "10",
+      "name": "Losartan",
+      "cost": 1700,
+      "fromWhere": "Nukus",
+      "toWhere": "Fergana",
+      "sold": 17
+    }
+  ],
+  "Export": [
+    {
+      "id": "1",
+      "name": "Parasitamol",
+      "cost": 1000,
+      "sold": 12,
+      "client": "aziza",
+      "paymentType": "Karta",
+      "date": "2021-01-06"
+    },
+    {
+      "id": "2",
+      "name": "Ibuprofen",
+      "cost": 1500,
+      "sold": 15,
+      "client": "malik",
+      "paymentType": "Naqd",
+      "date": "2021-02-06"
+    },
+    {
+      "id": "3",
+      "name": "Amoxicillin",
+      "cost": 2000,
+      "sold": 20,
+      "client": "sara",
+      "paymentType": "Karta",
+      "date": "2021-03-06"
+    },
+    {
+      "id": "4",
+      "name": "Cetirizine",
+      "cost": 1200,
+      "sold": 8,
+      "client": "dilshod",
+      "paymentType": "Naqd",
+      "date": "2021-04-06"
+    },
+    {
+      "id": "5",
+      "name": "Metformin",
+      "cost": 1800,
+      "sold": 25,
+      "client": "kamola",
+      "paymentType": "Karta",
+      "date": "2021-05-06"
+    },
+    {
+      "id": "6",
+      "name": "Amlodipine",
+      "cost": 1600,
+      "sold": 18,
+      "client": "jasur",
+      "paymentType": "Naqd",
+      "date": "2021-06-06"
+    },
+    {
+      "id": "7",
+      "name": "Atorvastatin",
+      "cost": 2100,
+      "sold": 14,
+      "client": "nodira",
+      "paymentType": "Karta",
+      "date": "2021-07-06"
+    },
+    {
+      "id": "8",
+      "name": "Lisinopril",
+      "cost": 1900,
+      "sold": 22,
+      "client": "furqat",
+      "paymentType": "Naqd",
+      "date": "2021-08-06"
+    },
+    {
+      "id": "9",
+      "name": "Omeprazole",
+      "cost": 1100,
+      "sold": 16,
+      "client": "zuhra",
+      "paymentType": "Karta",
+      "date": "2021-09-06"
+    },
+    {
+      "id": "10",
+      "name": "Losartan",
+      "cost": 1700,
+      "sold": 17,
+      "client": "shohruh",
+      "paymentType": "Naqd",
+      "date": "2021-10-06"
+    }
+  ],
+  "ExportHolder": [
+    {
+      "id": "10",
+      "name": "Losartan",
+      "cost": 1700,
+      "fromWhere": "Nukus",
+      "toWhere": "Fergana",
+      "sold": 17
+    }
+  ],
+  "comingAdd": [
+    {
+      "id": "d91c",
+      "name": "a",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "d68c",
+      "name": "b",
+      "quantity": 1,
+      "purchasePrice": 1,
+      "sellingPrice": 1,
+      "sum": 1,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "7804",
+      "name": "c",
+      "quantity": 2,
+      "purchasePrice": 2,
+      "sellingPrice": 2,
+      "sum": 2,
+      "date": "2025-02-22"
+    }
+  ]
 }
