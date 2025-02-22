@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // added import
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
 interface ComingItem {
     id: number;
@@ -16,22 +17,21 @@ interface ComingItem {
 }
 
 export default function MedicinesPage() {
-    const router = useRouter(); // initialize router
+    const router = useRouter();
     const [medicineName, setMedicineName] = useState("");
-    const [quantity, setQuantity] = useState(""); // changed from number to string
-    const [purchasePrice, setPurchasePrice] = useState(""); // changed from number to string
-    const [sellingPrice, setSellingPrice] = useState(""); // changed from number to string
-    const [sum, setSum] = useState(""); // changed from number to string
+    const [quantity, setQuantity] = useState("");
+    const [purchasePrice, setPurchasePrice] = useState("");
+    const [sellingPrice, setSellingPrice] = useState("");
+    const [sum, setSum] = useState("");
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [comingItems, setComingItems] = useState<ComingItem[]>([]);
     const [editingId, setEditingId] = useState<number | null>(null);
 
-    // Fetch initial comingAdd items from json-server
+    // Fetch initial ImportHolder items using axios
     useEffect(() => {
-        fetch("http://172.18.0.55:5000/comingAdd")
-            .then((res) => res.json())
-            .then((data) => setComingItems(data))
-            .catch((err) => console.error("Error fetching comingAdd items:", err));
+        axios.get("http://172.18.0.55:5000/ImportHolder")
+            .then((response) => setComingItems(response.data))
+            .catch((err) => console.error("Error fetching ImportHolder items:", err));
     }, []);
 
     const handleAdd = () => {
@@ -45,15 +45,9 @@ export default function MedicinesPage() {
                 date,
             };
 
-            fetch("http://172.18.0.55:5000/comingAdd", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newItem),
-            })
-                .then((res) => res.json())
-                .then((createdItem) => {
-                    // Add the new item at the beginning of the comingItems list
-                    setComingItems((prev) => [createdItem, ...prev]);
+            axios.post("http://172.18.0.55:5000/ImportHolder", newItem)
+                .then((response) => {
+                    setComingItems((prev) => [response.data, ...prev]);
                     // Reset inputs
                     setMedicineName("");
                     setQuantity("");
@@ -67,9 +61,7 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number) => {
-        fetch(`http://172.18.0.55:5000/comingAdd/${id}`, {
-            method: "DELETE",
-        })
+        axios.delete(`http://172.18.0.55:5000/ImportHolder/${id}`)
             .then(() => {
                 setComingItems((prev) => prev.filter((item) => item.id !== id));
             })
@@ -79,7 +71,7 @@ export default function MedicinesPage() {
     const handleEdit = (item: ComingItem) => {
         setEditingId(item.id);
         setMedicineName(item.name);
-        setQuantity(`${item.quantity}`); // convert number to string
+        setQuantity(`${item.quantity}`);
         setPurchasePrice(`${item.purchasePrice}`);
         setSellingPrice(`${item.sellingPrice}`);
         setSum(`${item.sum}`);
@@ -100,15 +92,10 @@ export default function MedicinesPage() {
                 date
             };
 
-            fetch(`http://172.18.0.55:5000/ImportHolder/${editingId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updatedItem),
-            })
-                .then((res) => res.json())
-                .then((data) => {
+            axios.put(`http://172.18.0.55:5000/ImportHolder/${editingId}`, updatedItem)
+                .then((response) => {
                     setComingItems((prev) =>
-                        prev.map((item) => (item.id === editingId ? data : item))
+                        prev.map((item) => (item.id === editingId ? response.data : item))
                     );
                     // Reset inputs
                     setMedicineName("");
@@ -123,17 +110,12 @@ export default function MedicinesPage() {
         }
     };
 
-    // New function to save all items to "coming"
     const handleSaveAll = async () => {
         try {
-            await Promise.all(comingItems.map(item => {
-                return fetch("http://172.18.0.55:5000/Import", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(item),
-                });
-            }));
-            router.push("/pages/inventory/coming"); // redirect after save
+            await Promise.all(comingItems.map(item => 
+                axios.post("http://172.18.0.55:5000/Import", item)
+            ));
+            router.push("/pages/inventory/coming");
         } catch (err) {
             console.error("Ошибка при сохранении товаров", err);
             alert("Ошибка при сохранении товаров");
@@ -262,7 +244,6 @@ export default function MedicinesPage() {
                 </table>
             </div>
 
-            {/* New "сохранить" button */}
             <div className="mt-4">
                 <button 
                     onClick={handleSaveAll} 
