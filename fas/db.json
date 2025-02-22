@@ -28,90 +28,80 @@
         {
             "id": 1,
             "name": "Parasitamol",
+            "sell": 1500,
             "cost": 1000,
-            "fromWhere": "fergana",
-            "toWhere": "Tashkent",
             "sold": 12,
             "date": "2021-06-01"
         },
         {
             "id": 2,
             "name": "Ibuprofen",
+            "sell": 2000,
             "cost": 1500,
-            "fromWhere": "Tashkent",
-            "toWhere": "Samarqand",
             "sold": 10,
             "date": "2021-06-02"
         },
         {
             "id": 3,
             "name": "Amoxicillin",
+            "sell": 2500,
             "cost": 2000,
-            "fromWhere": "Bukhara",
-            "toWhere": "Tashkent",
             "sold": 20,
             "date": "2021-06-03"
         },
         {
             "id": 4,
             "name": "Cetirizine",
+            "sell": 1600,
             "cost": 1200,
-            "fromWhere": "Namangan",
-            "toWhere": "Fergana",
             "sold": 15,
             "date": "2021-06-04"
         },
         {
             "id": 5,
             "name": "Metformin",
+            "sell": 2300,
             "cost": 1800,
-            "fromWhere": "Andijan",
-            "toWhere": "Tashkent",
             "sold": 25,
             "date": "2021-06-05"
         },
         {
             "id": 6,
             "name": "Amlodipine",
+            "sell": 2100,
             "cost": 1600,
-            "fromWhere": "Samarqand",
-            "toWhere": "Bukhara",
             "sold": 18,
             "date": "2021-06-06"
         },
         {
             "id": 7,
             "name": "Atorvastatin",
+            "sell": 2700,
             "cost": 2100,
-            "fromWhere": "Fergana",
-            "toWhere": "Andijan",
             "sold": 12,
             "date": "2021-06-07"
         },
         {
             "id": 8,
             "name": "Lisinopril",
+            "sell": 2400,
             "cost": 1900,
-            "fromWhere": "Kokand",
-            "toWhere": "Tashkent",
             "sold": 30,
             "date": "2021-06-08"
         },
         {
             "id": 9,
             "name": "Omeprazole",
+            "sell": 1500,
             "cost": 1100,
-            "fromWhere": "Margilan",
-            "toWhere": "Namangan",
             "sold": 22,
             "date": "2021-06-09"
         },
         {
             "id": 10,
             "name": "Losartan",
+            "sell": 2200,
             "cost": 1700,
-            "fromWhere": "Nukus",
-            "toWhere": "Fergana",
             "sold": 17,
             "date": "2021-06-10"
         }
@@ -131,81 +121,91 @@
             "id": 1,
             "name": "Parasitamol",
             "cost": 1000,
-            "fromWhere": "fergana",
-            "toWhere": "Tashkent",
-            "sold": 12
+            "sold": 12,
+            "client": "aziza",
+            "paymentType": "Karta",
+            "date": "01/06/2021"
         },
         {
             "id": 2,
             "name": "Ibuprofen",
             "cost": 1500,
-            "fromWhere": "Tashkent",
-            "toWhere": "Samarqand",
-            "sold": 10
+            "sold": 15,
+            "client": "malik",
+            "paymentType": "Naqd",
+            "date": "02/06/2021"
         },
         {
             "id": 3,
             "name": "Amoxicillin",
             "cost": 2000,
-            "fromWhere": "Bukhara",
-            "toWhere": "Tashkent",
-            "sold": 20
+            "sold": 20,
+            "client": "sara",
+            "paymentType": "Karta",
+            "date": "03/06/2021"
         },
         {
             "id": 4,
             "name": "Cetirizine",
             "cost": 1200,
-            "fromWhere": "Namangan",
-            "toWhere": "Fergana",
-            "sold": 15
+            "sold": 8,
+            "client": "dilshod",
+            "paymentType": "Naqd",
+            "date": "04/06/2021"
         },
         {
             "id": 5,
             "name": "Metformin",
             "cost": 1800,
-            "fromWhere": "Andijan",
-            "toWhere": "Tashkent",
-            "sold": 25
+            "sold": 25,
+            "client": "kamola",
+            "paymentType": "Karta",
+            "date": "05/06/2021"
         },
         {
             "id": 6,
             "name": "Amlodipine",
             "cost": 1600,
-            "fromWhere": "Samarqand",
-            "toWhere": "Bukhara",
-            "sold": 18
+            "sold": 18,
+            "client": "jasur",
+            "paymentType": "Naqd",
+            "date": "06/06/2021"
         },
         {
             "id": 7,
             "name": "Atorvastatin",
             "cost": 2100,
-            "fromWhere": "Fergana",
-            "toWhere": "Andijan",
-            "sold": 12
+            "sold": 14,
+            "client": "nodira",
+            "paymentType": "Karta",
+            "date": "07/06/2021"
         },
         {
             "id": 8,
             "name": "Lisinopril",
             "cost": 1900,
-            "fromWhere": "Kokand",
-            "toWhere": "Tashkent",
-            "sold": 30
+            "sold": 22,
+            "client": "furqat",
+            "paymentType": "Naqd",
+            "date": "08/06/2021"
         },
         {
             "id": 9,
             "name": "Omeprazole",
             "cost": 1100,
-            "fromWhere": "Margilan",
-            "toWhere": "Namangan",
-            "sold": 22
+            "sold": 16,
+            "client": "zuhra",
+            "paymentType": "Karta",
+            "date": "09/06/2021"
         },
         {
             "id": 10,
             "name": "Losartan",
             "cost": 1700,
-            "fromWhere": "Nukus",
-            "toWhere": "Fergana",
-            "sold": 17
+            "sold": 17,
+            "client": "shohruh",
+            "paymentType": "Naqd",
+            "date": "10/06/2021"
         }
     ],
     "ExportHolder": [
