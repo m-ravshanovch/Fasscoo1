@@ -76,7 +76,7 @@ export default function MedicinesPage() {
                     type="text"
                     value={paymentType}
                     onChange={(e) => setPaymentType(e.target.value)}
-                    className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2"
+                    className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2 font-semibold"
                     placeholder="Введите название..."
                 />
                 {editingIndex === null ? (
@@ -104,7 +104,7 @@ export default function MedicinesPage() {
                         key={index}
                         className="flex justify-between items-center mb-2 bg-gray-100 p-2 rounded"
                     >
-                        <span className="mr-4">{item}</span>
+                        <span className="mr-4 text-xl font-semibold">{item}</span>
                         <div className="space-x-2">
                             <button onClick={() => handleEdit(index)}>
                                 <Image src="/edit.png" width={32} height={32} alt="edit" />
