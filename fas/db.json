@@ -31,7 +31,8 @@
             "cost": 1000,
             "fromWhere": "fergana",
             "toWhere": "Tashkent",
-            "sold": 12
+            "sold": 12,
+            "date": "2021-06-01"
         },
         {
             "id": 2,
@@ -39,7 +40,8 @@
             "cost": 1500,
             "fromWhere": "Tashkent",
             "toWhere": "Samarqand",
-            "sold": 10
+            "sold": 10,
+            "date": "2021-06-02"
         },
         {
             "id": 3,
@@ -47,7 +49,8 @@
             "cost": 2000,
             "fromWhere": "Bukhara",
             "toWhere": "Tashkent",
-            "sold": 20
+            "sold": 20,
+            "date": "2021-06-03"
         },
         {
             "id": 4,
@@ -55,7 +58,8 @@
             "cost": 1200,
             "fromWhere": "Namangan",
             "toWhere": "Fergana",
-            "sold": 15
+            "sold": 15,
+            "date": "2021-06-04"
         },
         {
             "id": 5,
@@ -63,7 +67,8 @@
             "cost": 1800,
             "fromWhere": "Andijan",
             "toWhere": "Tashkent",
-            "sold": 25
+            "sold": 25,
+            "date": "2021-06-05"
         },
         {
             "id": 6,
@@ -71,7 +76,8 @@
             "cost": 1600,
             "fromWhere": "Samarqand",
             "toWhere": "Bukhara",
-            "sold": 18
+            "sold": 18,
+            "date": "2021-06-06"
         },
         {
             "id": 7,
@@ -79,7 +85,8 @@
             "cost": 2100,
             "fromWhere": "Fergana",
             "toWhere": "Andijan",
-            "sold": 12
+            "sold": 12,
+            "date": "2021-06-07"
         },
         {
             "id": 8,
@@ -87,7 +94,8 @@
             "cost": 1900,
             "fromWhere": "Kokand",
             "toWhere": "Tashkent",
-            "sold": 30
+            "sold": 30,
+            "date": "2021-06-08"
         },
         {
             "id": 9,
@@ -95,7 +103,8 @@
             "cost": 1100,
             "fromWhere": "Margilan",
             "toWhere": "Namangan",
-            "sold": 22
+            "sold": 22,
+            "date": "2021-06-09"
         },
         {
             "id": 10,
@@ -103,7 +112,8 @@
             "cost": 1700,
             "fromWhere": "Nukus",
             "toWhere": "Fergana",
-            "sold": 17
+            "sold": 17,
+            "date": "2021-06-10"
         }
     ],
     "ImportHolder": [
