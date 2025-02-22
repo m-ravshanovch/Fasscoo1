@@ -18,7 +18,7 @@ export default function Home() {
     return (
         <div className="p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
             <div className="w-full flex justify-end">
-                <button className="px-3 rounded-lg text-xl border-2 border-solid border-[#0D1633] active:opacity-80 "><Link href={'/pages/inventoryPlus/'}>+</Link></button>
+                <button className="px-3 rounded-lg text-xl border-2 border-solid border-[#0D1633] active:opacity-80 "><Link href={'/pages/inventory/inventoryPlus/'}>+</Link></button>
             </div>
             <div className="w-full place-items-center">
                 <div className="font-bold text-4xl text-center ">СКЛАД</div>
