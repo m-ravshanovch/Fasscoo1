@@ -10,16 +10,14 @@ export default function Home() {
     // const [data,setData]=useState([])
     const [importData, setImportData] = useState<{ id: number, name: string, cost: number, fromWhere: string, toWhere: string, sold: number,date:string}[]>([])
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import").then((res) => {
+        axios.get("http://192.168.0.105:5000/Import/").then((res) => {
             setImportData(res.data)
         }).catch((err) => {
             console.log(err.data)
         })
     }, [])
     const filteredData = importData.filter((item) => (
-        item.name.toLowerCase().includes(search.toLowerCase()),
-        item.date.toLowerCase().includes(search.toLowerCase())
-        
+        item.name.toLowerCase().includes(search.toLowerCase())
     ))
     // useEffect(()=>{
     //     if(!filterValue || filterType==="all"){
@@ -47,7 +45,7 @@ export default function Home() {
                 <div className="flex gap-x-5 justify-center mt-4"> 
                     <input type="text" placeholder="поиск" onChange={e => setSearch(e.target.value)} className="border-2 border-[#0D1633] border-solid rounded-md w-64 py-1 text-center" />
 
-                    <button className="px-3 bg-[#0D1633] text-white rounded-md"><Link href={'/pages/comingAdd/'} className="w-44 text-xl py-1 block active:opacity-80">добавить</Link></button>
+                    <button className="px-3 bg-[#0D1633] text-white rounded-md"><Link href={'/pages/inventory/coming/comingAdd'} className="w-44 text-xl py-1 block active:opacity-80">добавить</Link></button>
                 </div>
             </div>
 
