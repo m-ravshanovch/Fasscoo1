@@ -17,7 +17,7 @@ export default function Home() {
     }[]>([])
 
     useEffect(() => {
-        axios.get("http://172.18.0.55:5000/Import/")
+        axios.get("http://192.168.0.105:5000/Import/")
             .then((res) => {
                 setImportData(res.data)
                 console.log(res.data)
@@ -46,13 +46,13 @@ export default function Home() {
             </div>
 
             <div className="font-bold text-4xl text-center">
-                продажа<br /> <span className="text-zinc-400 text-xl">список</span>
+            приход товаров<br /> <span className="text-zinc-400 text-xl">список</span>
             </div>
 
             <div className="w-full flex justify-center">
                 <input
                     type="text"
-                    placeholder="Поиск (лек. или клиент)"
+                    placeholder="Поиск"
                     onChange={e => setSearch(e.target.value)}
                     className="border-2 border-[#0D1633] border-solid rounded-md w-64 py-1 text-center"
                 />
@@ -61,7 +61,7 @@ export default function Home() {
             <div className="w-full place-items-center">
                 <div className="flex gap-x-5 justify-center mt-4">
                     <input
-                        type="text" // Changed from "date" to "text"
+                        type="text" 
                         placeholder="Фильтр по дате"
                         onChange={e => setDateFilter(e.target.value)}
                         className="border-2 border-[#0D1633] border-solid rounded-md w-64 py-1 text-center"

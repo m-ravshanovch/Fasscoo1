@@ -18,7 +18,7 @@ export default function Home() {
   }[]>([])
 
   useEffect(() => {
-    axios.get("http://172.20.10.2:5000/Export/")
+    axios.get("http://192.168.0.105:5000/Export/")
       .then((res) => {
         setImportData(res.data)
         console.log(res.data)
