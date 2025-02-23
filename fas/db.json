@@ -14,12 +14,16 @@
     {
       "id": "ac92",
       "name": "yulduzcha"
+    },
+    {
+      "id": "35c4",
+      "name": "goll"
     }
   ],
   "Client": [
     {
-      "id": "2732",
-      "name": "aziz"
+      "id": "ee17",
+      "name": "dawd"
     }
   ],
   "PaymentType": [
@@ -176,6 +180,15 @@
       "sell": 10000,
       "sum": 350000,
       "date": "2025-02-23"
+    },
+    {
+      "id": "e903",
+      "name": "wdaw",
+      "quantity": 23,
+      "cost": 2323,
+      "sell": 32223,
+      "sum": 23010,
+      "date": "2025-02-23"
     }
   ],
   "ImportHolder": [],
@@ -299,6 +312,15 @@
       "paymentType": "",
       "date": "",
       "": "1111-11-11"
+    },
+    {
+      "id": "89c4",
+      "name": "",
+      "sold": 0,
+      "cost": 0,
+      "client": "",
+      "paymentType": "",
+      "date": ""
     }
   ],
   "comingAdd": [

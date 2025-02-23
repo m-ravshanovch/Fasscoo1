@@ -14,7 +14,7 @@ export default function MedicinesPage() {
     const [medicineName, setMedicineName] = useState("");
     const [medicines, setMedicines] = useState<Medicine[]>([]);
     const [editingId, setEditingId] = useState<number | null>(null);
-    const API_URL = "http://172.18.0.55:5000/Medicine";
+    const API_URL = "http://172.20.10.2:5000/Medicine";
 
     // Fetch medicines on component mount
     useEffect(() => {

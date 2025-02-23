@@ -25,7 +25,7 @@ export default function Home() {
     date:""
   })
   useEffect(() => {
-    axios.get("http://172.18.0.55:5000/ExportHolder/")
+    axios.get("http://172.20.10.2:5000/ExportHolder/")
       .then((res) => {
         setImportData(res.data)
         console.log(res.data)
@@ -36,7 +36,7 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    axios.get("http://172.18.0.55:5000/Medicine/").then((res) => {
+    axios.get("http://172.20.10.2:5000/Medicine/").then((res) => {
       setOption(res.data)
       console.log(res.data)
     }).catch((err) => {
@@ -45,7 +45,7 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    axios.get("http://172.18.0.55:5000/Client/").then((res) => {
+    axios.get("http://172.20.10.2:5000/Client/").then((res) => {
       setClient(res.data)
       console.log(res.data)
     }).catch((err) => {
@@ -53,7 +53,7 @@ export default function Home() {
     })
   }, [])
   useEffect(() => {
-    axios.get("http://172.18.0.55:5000/PaymentType/").then((res) => {
+    axios.get("http://172.20.10.2:5000/PaymentType/").then((res) => {
       setPayType(res.data)
       console.log(res.data)
     }).catch((err) => {
@@ -73,7 +73,7 @@ export default function Home() {
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
     try {
-      const response= await axios.post("http://172.18.0.55:5000/ExportHolder/",values,{headers:{"Content-Type":"application/json"}});
+      const response= await axios.post("http://172.20.10.2:5000/ExportHolder/",values,{headers:{"Content-Type":"application/json"}});
       console.log("Success:",response)
       setValues({
         name:"",
