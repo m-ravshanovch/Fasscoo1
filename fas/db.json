@@ -104,7 +104,17 @@
       "date": "2025-02-23"
     }
   ],
-  "ImportHolder": [],
+  "ImportHolder": [
+    {
+      "id": "7403",
+      "name": "abdugani",
+      "quantity": 3333,
+      "cost": 400,
+      "sell": 200000,
+      "sum": 0,
+      "date": "2025-02-23"
+    }
+  ],
   "Export": [
     {
       "id": "b382",
