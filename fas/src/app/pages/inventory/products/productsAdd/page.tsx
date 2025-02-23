@@ -1,207 +1,333 @@
-"use client"
-import axios from "axios"
-import Link from "next/link"
-import Image from "next/image"
-import { useState, useEffect } from "react"
-export default function Home() {
-  const [importData, setImportData] = useState<{
-    id: number,
-    name: string,
-    cost: number,
-    paymentType: string,
-    client: string,
-    sold: number,
-    date: string
-  }[]>([])
-  const [option, setOption] = useState<{ name: string }[]>([])
-  const [client, setClient] = useState<{ name: string }[]>([])
-  const [payType, setPayType] = useState<{ name: string }[]>([])
-  const [values,setValues]=useState({
-    name:"",
-    sold:0,
-    cost:0,
-    client:"",
-    paymentType:"",
-    date:""
-  })
-  useEffect(() => {
-    axios.get("http://172.20.10.2:5000/ExportHolder/")
-      .then((res) => {
-        setImportData(res.data)
-        console.log(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+'use client';
 
-  useEffect(() => {
-    axios.get("http://172.20.10.2:5000/Medicine/").then((res) => {
-      setOption(res.data)
-      console.log(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }, [])
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import axios from "axios";
 
-  useEffect(() => {
-    axios.get("http://172.20.10.2:5000/Client/").then((res) => {
-      setClient(res.data)
-      console.log(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }, [])
-  useEffect(() => {
-    axios.get("http://172.20.10.2:5000/PaymentType/").then((res) => {
-      setPayType(res.data)
-      console.log(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }, [])
+interface ComingItem {
+    id: number | string;
+    name: string;
+    quantity: number;
+    purchasePrice: number;
+    sellingPrice: number;
+    sum: number;
+    date: string;
+}
 
-  // const optionn = option.map((item) => {
-  //   return item.name
-  // })
-  const heandleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
-      [e.target.name]:e.target.value
-    })
-  }
-  const handleSubmit = async (e:React.FormEvent) => {
-    e.preventDefault()
-    try {
-      const response= await axios.post("http://172.20.10.2:5000/ExportHolder/",values,{headers:{"Content-Type":"application/json"}});
-      console.log("Success:",response)
-      setValues({
-        name:"",
-        sold:0,
-        cost:0,
-        client:"",
-        paymentType:"",
-        date:""
-      })
-    }catch(error){
-      console.error(error)
-      alert("so bo'lasiz")
-    }
-  }
-  console.log(values)
+export default function MedicinesPage() {
+    const router = useRouter();
+    const [medicineName, setMedicineName] = useState("");
+    const [quantity, setQuantity] = useState<number>(0);
+    const [purchasePrice, setPurchasePrice] = useState<number>(0);
+    const [sellingPrice, setSellingPrice] = useState<number>(0);
+    const [sum, setSum] = useState<number>(0);
+    const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+    const [comingItems, setComingItems] = useState<ComingItem[]>([]);
+    const [editingId, setEditingId] = useState<number | string | null>(null);
+    const [madecine, setMadecine] = useState<{ name: string }[]>([])
+    useEffect(() => {
+        axios.get("http://172.20.10.2:5000/ImportHolder")
+            .then((response) => {
+                const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; quantity: number; sum: number; date: string }) => ({
+                    ...item,
+                    purchasePrice: item.cost,
+                    sellingPrice: item.sell,
+                }));
+                setComingItems(items);
+            })
+            .catch((err) => console.error("Error fetching ImportHolder items:", err));
+    }, []);
+    const handleAdd = () => {
+        if (medicineName.trim()) {
+            const newItem = {
+                name: medicineName.trim(),
+                quantity, // already a number
+                cost: purchasePrice,
+                sell: sellingPrice,
+                sum,
+                date,
+            };
 
-  return (
-    <div className="md:p-2 place-items-start md:place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
-      <div className="w-full flex justify-end">
-        <button className="px-3 rounded-lg text-xl active:opacity-80">
-          <Link href={'/pages/inventory/'}>
-            <Image src={'/back-button.png'} width={32} height={32} alt="back-button" />
-          </Link>
-        </button>
-      </div>
+            axios.post("http://172.20.10.2:5000/ImportHolder", newItem)
+                .then((response) => {
+                    const responseItem = {
+                        ...response.data,
+                        purchasePrice: response.data.cost,
+                        sellingPrice: response.data.sell,
+                    };
+                    setComingItems((prev) => [responseItem, ...prev]);
+                    // Reset inputs
+                    setMedicineName("");
+                    setQuantity(0);
+                    setPurchasePrice(0);
+                    setSellingPrice(0);
+                    setSum(0);
+                    setDate(new Date().toISOString().split("T")[0]);
+                })
+                .catch((err) => console.error("Error adding item:", err));
+        }
+    };
 
-      <div className="font-bold text-4xl text-left md:text-center p-3">
-        продажа<br /> <span className="text-zinc-400 text-xl">список</span>
-      </div>
-      <form id="1" onSubmit={handleSubmit} className="w-full place-items-center p-1" >
-        <div className=" grid grid-cols-2 md:grid-cols-6 gap-3">
-          <div>
-            <label htmlFor="" className="block font-medium">Лек.</label>
+    const handleRemove = (id: number | string) => {
+        axios.delete(`http://172.20.10.2:5000/ImportHolder/${id}`)
+            .then(() => {
+                setComingItems((prev) => prev.filter((item) => item.id !== id));
+            })
+            .catch((err) => console.error("Error removing item:", err));
+    };
 
+    const handleEdit = (item: ComingItem) => {
+        setEditingId(item.id);
+        setMedicineName(item.name);
+        setQuantity(item.quantity);
+        setPurchasePrice(item.purchasePrice);
+        setSellingPrice(item.sellingPrice);
+        setSum(item.sum);
+        setDate(item.date);
+    };
 
-            <input type="text" list="medicine-list" onChange={heandleChange} className=" w-full border-2 border-gray-600 px-2 text-lg rounded-md" />
-            <datalist id="medicine-list">
-              {option.map((res, i) => (
-                <option key={i} value={res.name}></option>
-              ))}
-            </datalist>
+    const handleUpdate = () => {
+        if (editingId !== null && medicineName.trim()) {
+            const originalItem = comingItems.find((item) => item.id === editingId);
+            if (!originalItem) return;
+            const updatedItem = {
+                ...originalItem,
+                name: medicineName.trim(),
+                quantity,
+                cost: purchasePrice,
+                sell: sellingPrice,
+                sum,
+                date
+            };
 
-          </div>
+            axios.put(`http://172.20.10.2:5000/ImportHolder/${editingId}`, updatedItem)
+                .then((response) => {
+                    const responseItem = {
+                        ...response.data,
+                        purchasePrice: response.data.cost,
+                        sellingPrice: response.data.sell,
+                    };
+                    setComingItems((prev) =>
+                        prev.map((item) => (item.id === editingId ? responseItem : item))
+                    );
+                    // Reset inputs
+                    setMedicineName("");
+                    setQuantity(0);
+                    setPurchasePrice(0);
+                    setSellingPrice(0);
+                    setSum(0);
+                    setDate(new Date().toISOString().split("T")[0]);
+                    setEditingId(null);
+                })
+                .catch((err) => console.error("Error updating item:", err));
+        }
+    };
 
-          <div>
-            <label htmlFor=""  className="block font-medium">кол.</label>
-            <input type="number"  onChange={heandleChange} className=" w-full border-2  border-gray-600 px-2 text-lg rounded-md" />
-          </div>
-          <div>
-            <label htmlFor="" className="block font-medium">цена.</label>
-            <input type="number"  onChange={heandleChange} className=" w-full border-2 border-gray-600 px-2 text-lg rounded-md" />
-          </div>
-          <div>
-            <label htmlFor=""  className="block font-medium">сумма.</label>
-            <input type="number"  onChange={heandleChange} className=" w-full border-2 border-gray-600 px-2 text-lg rounded-md" />
-          </div>
-          <div>
-            <label htmlFor="" className="block font-medium">клиент.</label>
-            <input type="text" list="client-list" onChange={heandleChange} className=" w-full border-2 border-gray-600 px-2 text-lg rounded-md" />
-            <datalist id="client-list">
-              {client.map((res, i) => (
-                <option key={i} value={res.name}></option>
-              ))}
-            </datalist>
-          
-          </div>
-          <div>
-            <label htmlFor="" className="block font-medium">Типоплаты.</label>
-            <input type="text" list="pay-list" onChange={heandleChange} className=" w-full border-2 border-gray-600 px-2 text-lg rounded-md" />
-            <datalist id="pay-list">
-              {payType.map((res, i) => (
-                <option key={i} value={res.name}>{res.name}</option>
-              ))}
-            </datalist>
-          
-          </div>
-          <div>
-            <label htmlFor="" className="block font-medium">дата.</label>
-            <input type="text" onChange={heandleChange} className=" w-full border-2 border-gray-600 px-2 text-lg rounded-md" />
-          </div>
+    const handleSaveAll = async () => {
+        try {
+            await Promise.all(comingItems.map(async (item) => {
+                const formattedItem = {
+                    name: item.name,
+                    quantity: item.quantity,
+                    cost: item.purchasePrice,
+                    sell: item.sellingPrice,
+                    sum: item.sum,
+                    date: item.date
+                };
+                await axios.post("http://172.20.10.2:5000/Import", formattedItem);
+                await axios.delete(`http://172.20.10.2:5000/ImportHolder/${item.id}`);
+            }));
+            router.push("/pages/inventory/coming");
+        } catch (err) {
+            console.error("Ошибка при сохранении товаров", err);
+            alert("Ошибка при сохранении товаров");
+        }
+    };
+    useEffect(() => {
+        axios.get("http://172.20.10.2:5000/Client").then((res) => {
+            setMadecine(res.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }, [])
+    const totalQuantity = comingItems.reduce((acc, item) => acc + item.quantity, 0);
+    const totalSum = comingItems.reduce((acc, item) => acc + item.sum, 0);
+    return (
+        <div className=" w-full p-6 mt-8">
+            <div className="absolute top-4 right-4">
+                <Link href="/pages/inventory/coming/">
+                    <Image
+                        src="/back-button.png"
+                        width={32}
+                        height={32}
+                        alt="back-button"
+                    />
+                </Link>
+            </div>
+            <h1 className="text-4xl font-bold mb-4">продажа</h1>
+
+            <div className="w-full ">
+                <div className="grid grid-cols-2 md:grid-cols-6  gap-x-4 gap-y-4 ">
+                    <div >
+                        <label>Лек.</label>
+                        <input
+                            list="medicine-list"
+                            type="text"
+                            onChange={(e) => setMedicineName(e.target.value)}
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+                        <datalist id="medicine-list">
+                            {madecine && madecine.map((res, i) => (
+                                <option key={i} value={res.name}></option>
+                            ))}
+                        </datalist>
+                    </div>
+                    <div>
+                        <label>кол.</label>
+
+                        <input
+
+                            type="number"
+                            onChange={(e) =>
+                                setQuantity(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                            }
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+
+                    </div>
+                    <div>
+                        <label>ц. покуп. </label>
+
+                        <input
+                            type="number"
+                            onChange={(e) =>
+                                setPurchasePrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                            }
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+                    </div>
+                    <div>
+                        <label>ц. прод. </label>
+
+                        <input
+                            type="number"
+                            onChange={(e) =>
+                                setSellingPrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                            }
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+                    </div>
+                    <div>
+                        <label>сумма.</label>
+
+                        <input
+                            type="number"
+                            onChange={(e) =>
+                                setSum(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                            }
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+                    </div>
+                    <div>
+                        <label>дата.</label>
+
+                        <input
+                            type="text"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+                    </div>
+                </div>
+
+            </div>
+            <div className="flex justify-end w-full mt-5">
+                {editingId === null ? (
+                    <button
+                        onClick={handleAdd}
+                        className="border-2 border-[#0D1633] bg-[#0D1633] rounded-lg text-white text-sm lg:text-xl p-1"
+                    >
+                        добавить
+                    </button>
+                ) : (
+                    <button
+                        onClick={handleUpdate}
+                        className="border-2 border-[#0D1633] bg-[#0D1633] rounded-lg text-white text-sm lg:text-xl p-1"
+                    >
+                        обновить
+                    </button>
+                )}
+            </div>
+
+            <p className="mb-2">Количество лекарств: {comingItems.length}</p>
+
+            <div className="overflow-x-auto w-full max-w-screen">
+                <table className="min-w-full divide-y divide-gray-200 border">
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ID</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Название</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Количество</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Закуп. Цена</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Прод. Цена</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Сумма</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Дата</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Действия</th>
+                        </tr>
+                        <tr>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ОБЩИЙ:</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">{totalQuantity}</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">{totalSum}</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y w-full divide-gray-200">
+                        {comingItems.map((item) => (
+                            <tr key={item.id}>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.id}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.name}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.quantity}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.purchasePrice}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sellingPrice}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sum}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-right">
+                                    <button onClick={() => handleEdit(item)} className="mr-2" title="Редактировать">
+                                        <Image
+                                            src="/edit.png"
+                                            width={24}
+                                            height={24}
+                                            alt="edit"
+                                        />
+                                    </button>
+                                    <button onClick={() => handleRemove(item.id)} title="Удалить">
+                                        <Image
+                                            src="/delete.png"
+                                            width={24}
+                                            height={24}
+                                            alt="delete"
+                                        />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <div className="mt-4 w-full flex justify-end items-center">
+                <button
+                    onClick={handleSaveAll}
+                    className="border-2 border-[#0D1633] bg-[#0D1633] rounded-lg text-white text-sm lg:text-xl p-1">
+                    сохранить
+                </button>
+            </div>
         </div>
-        <div className="w-full flex justify-end mt-3">
-          <button type="submit" className="px-3 bg-[#0D1633] text-white rounded-lg w-60 md:w-44 py-1">
-            добавить
-          </button>
-        </div>
-      </form>
-
-      <div className="w-full overflow-scroll ">
-        <table className="w-full border-2 place-items-center">
-          <thead >
-            <tr className="border-2 ">
-              <th className="text-left border-2">ID</th>
-              <th className="text-left border-2">Лек.</th>
-              <th>кол.</th>
-              <th className="text-right border-2">цена</th>
-              <th className="text-right border-2">сумма</th>
-              <th className="text-right border-2">клиент</th>
-              <th className="text-right border-2">Типоплаты</th>
-              <th className="text-right border-2">дата</th>
-            </tr>
-            <tr  >
-              <th className="text-left border-2">ОБЩИЙ</th>
-              <th className="text-left"></th>
-              <th className="border-2"></th>
-              <th className="text-right border-2"></th>
-              <th className="text-right border-2"> sum</th>
-              <th className="text-right border-2"></th>
-              <th className="text-right border-2"></th>
-              <th className="text-right border-2"></th>
-            </tr>
-          </thead>
-          <tbody className="border-2">
-            {importData.map((res) => (
-              <tr key={res.id} >
-                <td className="border-2">{res.id}</td>
-                <td className="border-2">{res.name}</td>
-                <td className="border-2 text-center">{res.sold}</td>
-                <td className="border-2 text-right">{res.cost}</td>
-                <td className="border-2 text-right">{res.cost * res.sold} sum</td>
-                <td className="border-2 text-right">{res.client}</td>
-                <td className="border-2  text-center md:text-right">{res.paymentType}</td>
-                <td className="border-2 text-right">{res.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
+    );
 }
