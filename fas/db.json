@@ -138,28 +138,36 @@
       "sell": 200,
       "sum": 0,
       "date": "2025-02-23"
-    }
-  ],
-  "ImportHolder": [
+    },
     {
-      "id": "9ac5",
+      "id": "cdc2",
       "name": "wadaw",
       "quantity": 3333,
       "cost": 232,
       "sell": 2332,
-      "sum": 0,
+      "sum": 773256,
       "date": "2025-02-23"
     },
     {
-      "id": "daa1",
+      "id": "cf0f",
       "name": "wdaaw",
       "quantity": 213123,
       "cost": 123123,
       "sell": 1312,
-      "sum": 0,
+      "sum": 26240343129,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "4fe5",
+      "name": "aziza",
+      "quantity": 232,
+      "cost": 3000,
+      "sell": 2233,
+      "sum": 696000,
       "date": "2025-02-23"
     }
   ],
+  "ImportHolder": [],
   "Export": [
     {
       "id": "b382",
