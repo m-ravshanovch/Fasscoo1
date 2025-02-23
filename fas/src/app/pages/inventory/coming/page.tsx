@@ -22,7 +22,7 @@ export default function Home() {
     const [comingData, setComingData] = useState<ComingItem[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import")
+        axios.get("http://172.18.0.55:5000/Import")
             .then((res) => {
                 // map the fields so that cost => purchasePrice and sell => sellingPrice
                 const mappedData = res.data.map((item: ComingItem) => ({
@@ -46,7 +46,7 @@ export default function Home() {
         return matchesName && matchesDate
     })
 
-    const totalSum = filteredData.reduce((acc, item) => acc + item.sum, 0)
+    const totalSum = filteredData.reduce((acc, item) => acc + item.quantity*item.purchasePrice, 0)
     const totalSold = filteredData.reduce((acc, item) => acc + item.quantity, 0)
 
     return (

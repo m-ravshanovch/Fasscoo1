@@ -18,7 +18,7 @@ export default function Home() {
     const [importData, setImportData] = useState<ImportData[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import/")
+        axios.get("http://172.18.0.55:5000/Import/")
             .then((res) => {
                 // If your server returns { Import: [...] }, use:
                 // setImportData(res.data.Import)

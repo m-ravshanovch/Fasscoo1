@@ -59,7 +59,7 @@
       "date": "2021-06-09"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Losartan",
       "quantity": 17,
       "cost": 1700,
@@ -131,12 +131,39 @@
       "date": "2025-02-25"
     },
     {
+<<<<<<< HEAD
       "id": "b354",
       "name": "muhammadqodir",
       "quantity": 30,
       "cost": 200,
       "sell": 200,
       "sum": 0,
+=======
+      "id": "eb15",
+      "name": "abdugani",
+      "quantity": 4243,
+      "cost": 23432,
+      "sell": 4234,
+      "sum": 99421976,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "898c",
+      "name": "aziza",
+      "quantity": 232,
+      "cost": 232,
+      "sell": 233,
+      "sum": 53824,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "6200",
+      "name": "aziza",
+      "quantity": 434,
+      "cost": 345,
+      "sell": 345,
+      "sum": 149730,
+>>>>>>> d192d2f347a445cf56e5d64f8c3d4a34eb9e45f7
       "date": "2025-02-23"
     }
   ],
@@ -248,6 +275,33 @@
       "cost": 11,
       "client": "aziz",
       "paymentType": "karta",
+      "date": "2025-02-23"
+    },
+    {
+      "id": "e893",
+      "name": "parasitamol",
+      "sold": 12,
+      "cost": 12,
+      "client": "abdugani",
+      "paymentType": "naqt",
+      "date": "2025-02-23"
+    },
+    {
+      "id": "7555",
+      "name": "sitramon",
+      "sold": 12,
+      "cost": 12,
+      "client": "muhammadqodir",
+      "paymentType": "apteka",
+      "date": "2025-02-23"
+    },
+    {
+      "id": "9fb5",
+      "name": "kupin",
+      "sold": 122,
+      "cost": 444,
+      "client": "muhammadqodir",
+      "paymentType": "naqt",
       "date": "2025-02-23"
     }
   ],
