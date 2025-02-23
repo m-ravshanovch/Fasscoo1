@@ -167,7 +167,17 @@
       "date": "2025-02-23"
     }
   ],
-  "ImportHolder": [],
+  "ImportHolder": [
+    {
+      "id": "9ac5",
+      "name": "wadaw",
+      "quantity": 3333,
+      "cost": 232,
+      "sell": 2332,
+      "sum": 0,
+      "date": "2025-02-23"
+    }
+  ],
   "Export": [
     {
       "id": "b382",

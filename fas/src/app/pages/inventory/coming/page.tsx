@@ -22,7 +22,7 @@ export default function Home() {
     const [comingData, setComingData] = useState<ComingItem[]>([])
 
     useEffect(() => {
-        axios.get("http://172.18.0.55:5000/Import")
+        axios.get("http://192.168.0.105:5000/Import")
             .then((res) => {
                 // map the fields so that cost => purchasePrice and sell => sellingPrice
                 const mappedData = res.data.map((item: ComingItem) => ({
