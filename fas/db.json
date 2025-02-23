@@ -126,6 +126,42 @@
       "sell": 2200,
       "sum": 37400,
       "date": "2021-06-10"
+    },
+    {
+      "id": "2a7b",
+      "name": "dawd",
+      "quantity": 567,
+      "cost": 5675,
+      "sell": 564,
+      "sum": 0,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "f1b0",
+      "name": "dawd",
+      "quantity": 567576,
+      "cost": 765767,
+      "sell": 5675,
+      "sum": 0,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "b1f5",
+      "name": "dawd",
+      "quantity": 12,
+      "cost": 235,
+      "sell": 234,
+      "sum": 18000,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "a0b3",
+      "name": "dawd",
+      "quantity": 45,
+      "cost": 400,
+      "sell": 500,
+      "sum": 18000,
+      "date": "2025-02-23"
     }
   ],
   "ImportHolder": [],
@@ -219,6 +255,24 @@
       "client": "shohruh",
       "paymentType": "Naqd",
       "date": "2021-10-06"
+    },
+    {
+      "id": "dd47",
+      "name": "dawd",
+      "sold": 123,
+      "cost": 123,
+      "client": "akmal",
+      "paymentType": "karta",
+      "date": "2025-02-23"
+    },
+    {
+      "id": "06cb",
+      "name": "dawd",
+      "sold": 11,
+      "cost": 11,
+      "client": "aziz",
+      "paymentType": "karta",
+      "date": "2025-02-23"
     }
   ],
   "ExportHolder": []

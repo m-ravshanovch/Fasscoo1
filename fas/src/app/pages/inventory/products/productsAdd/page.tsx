@@ -198,6 +198,7 @@ export default function MedicinesPage() {
                         <input
                             type="number"
                             title="Количество"
+                            value={sold === 0 ? "" : sold} // added value prop
                             onChange={(e) =>
                                 setsold(e.target.value === "" ? 0 : e.target.valueAsNumber)
                             }
@@ -209,6 +210,7 @@ export default function MedicinesPage() {
                         <input
                             type="number"
                             title="Цена"
+                            value={cost === 0 ? "" : cost} // added value prop
                             onChange={(e) =>
                                 setcost(e.target.value === "" ? 0 : e.target.valueAsNumber)
                             }
