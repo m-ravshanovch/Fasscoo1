@@ -22,7 +22,7 @@ export default function MedicinesPage() {
     const [quantity, setQuantity] = useState<number>(0);
     const [purchasePrice, setPurchasePrice] = useState<number>(0);
     const [sellingPrice, setSellingPrice] = useState<number>(0);
-    const [sum, setSum] = useState<number>(0);
+    const [sum, setSum] = useState<number>(quantity*purchasePrice);
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [comingItems, setComingItems] = useState<ComingItem[]>([]);
     const [editingId, setEditingId] = useState<number | string | null>(null);
@@ -65,7 +65,7 @@ export default function MedicinesPage() {
                     setQuantity(0);
                     setPurchasePrice(0);
                     setSellingPrice(0);
-                    setSum(0);
+                    setSum(quantity*purchasePrice);
                     setDate(new Date().toISOString().split("T")[0]);
                 })
                 .catch((err) => console.error("Error adding item:", err));
@@ -86,7 +86,7 @@ export default function MedicinesPage() {
         setQuantity(item.quantity);
         setPurchasePrice(item.purchasePrice);
         setSellingPrice(item.sellingPrice);
-        setSum(item.sum);
+        setSum(item.quantity*item.purchasePrice);
         setDate(item.date);
     };
 
@@ -119,7 +119,7 @@ export default function MedicinesPage() {
                     setQuantity(0);
                     setPurchasePrice(0);
                     setSellingPrice(0);
-                    setSum(0);
+                    setSum(quantity*purchasePrice);
                     setDate(new Date().toISOString().split("T")[0]);
                     setEditingId(null);
                 })
@@ -178,6 +178,7 @@ export default function MedicinesPage() {
                                 title="Лек."
                                 list="medicine-list"
                                 type="text"
+                                value={medicineName}
                                 onChange={(e) => setMedicineName(e.target.value)}
                                 className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                             />
@@ -192,6 +193,7 @@ export default function MedicinesPage() {
                             <input
                                 title="кол."
                                 type="number"
+                                value={quantity === 0 ? "" : quantity}
                                 onChange={(e) =>
                                     setQuantity(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                 }
@@ -203,6 +205,7 @@ export default function MedicinesPage() {
                             <input
                                 title="ц. покуп."
                                 type="number"
+                                value={purchasePrice === 0 ? "" : purchasePrice}
                                 onChange={(e) =>
                                     setPurchasePrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                 }
@@ -214,6 +217,7 @@ export default function MedicinesPage() {
                             <input
                                 title="ц. прод."
                                 type="number"
+                                value={sellingPrice === 0 ? "" : sellingPrice}
                                 onChange={(e) =>
                                     setSellingPrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                 }
@@ -224,10 +228,12 @@ export default function MedicinesPage() {
                             <label>сумма.</label>
                             <input
                                 title="сумма."
-                                value={quantity*purchasePrice}
                                 type="number"
+                                value={quantity*purchasePrice}
+                                onChange={(e) =>
+                                    setSum(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                }
                                 className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                                readOnly
                             />
                         </div>
                         <div>

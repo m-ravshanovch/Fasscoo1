@@ -53,10 +53,55 @@
       "id": "233e",
       "name": "abdugani",
       "quantity": 22,
-      "cost": 200,
-      "sell": 2300,
+      "cost": 1100,
+      "sell": 1500,
+      "sum": 33000,
+      "date": "2021-06-09"
+    },
+    {
+      "id": 10,
+      "name": "Losartan",
+      "quantity": 17,
+      "cost": 1700,
+      "sell": 2200,
+      "sum": 37400,
+      "date": "2021-06-10"
+    },
+    {
+      "id": "2a7b",
+      "name": "dawd",
+      "quantity": 567,
+      "cost": 5675,
+      "sell": 564,
       "sum": 0,
-      "date": "2025-02-1"
+      "date": "2025-02-23"
+    },
+    {
+      "id": "f1b0",
+      "name": "dawd",
+      "quantity": 567576,
+      "cost": 765767,
+      "sell": 5675,
+      "sum": 0,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "b1f5",
+      "name": "dawd",
+      "quantity": 12,
+      "cost": 235,
+      "sell": 234,
+      "sum": 18000,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "a0b3",
+      "name": "dawd",
+      "quantity": 45,
+      "cost": 400,
+      "sell": 500,
+      "sum": 18000,
+      "date": "2025-02-23"
     }
   ],
   "ImportHolder": [],
@@ -71,13 +116,103 @@
       "date": "2025-02-30"
     },
     {
-      "id": "fd77",
-      "name": "kupin",
-      "sold": 2000,
-      "cost": 2222,
-      "client": "muhammadqodir",
-      "paymentType": "naqt",
-      "date": "2025-02-13"
+      "id": "2",
+      "name": "Ibuprofen",
+      "cost": 1500,
+      "sold": 15,
+      "client": "malik",
+      "paymentType": "Naqd",
+      "date": "2021-02-06"
+    },
+    {
+      "id": "3",
+      "name": "Amoxicillin",
+      "cost": 2000,
+      "sold": 20,
+      "client": "sara",
+      "paymentType": "Karta",
+      "date": "2021-03-06"
+    },
+    {
+      "id": "4",
+      "name": "Cetirizine",
+      "cost": 1200,
+      "sold": 8,
+      "client": "dilshod",
+      "paymentType": "Naqd",
+      "date": "2021-04-06"
+    },
+    {
+      "id": "5",
+      "name": "Metformin",
+      "cost": 1800,
+      "sold": 25,
+      "client": "kamola",
+      "paymentType": "Karta",
+      "date": "2021-05-06"
+    },
+    {
+      "id": "6",
+      "name": "Amlodipine",
+      "cost": 1600,
+      "sold": 18,
+      "client": "jasur",
+      "paymentType": "Naqd",
+      "date": "2021-06-06"
+    },
+    {
+      "id": "7",
+      "name": "Atorvastatin",
+      "cost": 2100,
+      "sold": 14,
+      "client": "nodira",
+      "paymentType": "Karta",
+      "date": "2021-07-06"
+    },
+    {
+      "id": "8",
+      "name": "Lisinopril",
+      "cost": 1900,
+      "sold": 22,
+      "client": "furqat",
+      "paymentType": "Naqd",
+      "date": "2021-08-06"
+    },
+    {
+      "id": "9",
+      "name": "Omeprazole",
+      "cost": 1100,
+      "sold": 16,
+      "client": "zuhra",
+      "paymentType": "Karta",
+      "date": "2021-09-06"
+    },
+    {
+      "id": "10",
+      "name": "Losartan",
+      "cost": 1700,
+      "sold": 17,
+      "client": "shohruh",
+      "paymentType": "Naqd",
+      "date": "2021-10-06"
+    },
+    {
+      "id": "dd47",
+      "name": "dawd",
+      "sold": 123,
+      "cost": 123,
+      "client": "akmal",
+      "paymentType": "karta",
+      "date": "2025-02-23"
+    },
+    {
+      "id": "06cb",
+      "name": "dawd",
+      "sold": 11,
+      "cost": 11,
+      "client": "aziz",
+      "paymentType": "karta",
+      "date": "2025-02-23"
     }
   ],
   "ExportHolder": []
