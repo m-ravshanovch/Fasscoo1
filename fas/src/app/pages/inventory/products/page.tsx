@@ -22,7 +22,7 @@ export default function Home() {
     const [client, setClient] = useState("")
     const [suggestClient, setSuggestClient] = useState<{name:string}[]>([])
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Export")
+        axios.get("http://192.168.0.105:5000/Export")
             .then((res) => {
                 // Map the fields so that the procurement price (cost) is taken from "cost"
                 // and sale price (cost) defaults to "sell" if available, otherwise fallback to "cost".
@@ -53,7 +53,7 @@ export default function Home() {
     
 
     useEffect(()=>{
-        axios.get("http://172.20.10.2:5000/Client").then((res)=>{
+        axios.get("http://192.168.0.105:5000/Client").then((res)=>{
             setSuggestClient(res.data)
         }).catch((err)=>{
             console.log(err)

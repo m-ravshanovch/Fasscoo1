@@ -28,7 +28,7 @@ export default function MedicinesPage() {
     const [editingId, setEditingId] = useState<number | string | null>(null);
     const [madecine, setMadecine] = useState<{ name: string }[]>([])
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/ImportHolder")
+        axios.get("http://192.168.0.105:5000/ImportHolder")
             .then((response) => {
                 const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; quantity: number; sum: number; date: string }) => ({
                     ...item,
@@ -52,7 +52,7 @@ export default function MedicinesPage() {
 
 
 
-            axios.post("http://172.20.10.2:5000/ImportHolder", newItem)
+            axios.post("http://192.168.0.105:5000/ImportHolder", newItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -73,7 +73,7 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number | string) => {
-        axios.delete(`http://172.20.10.2:5000/ImportHolder/${id}`)
+        axios.delete(`http://192.168.0.105:5000/ImportHolder/${id}`)
             .then(() => {
                 setComingItems((prev) => prev.filter((item) => item.id !== id));
             })
@@ -104,7 +104,7 @@ export default function MedicinesPage() {
                 date
             };
 
-            axios.put(`http://172.20.10.2:5000/ImportHolder/${editingId}`, updatedItem)
+            axios.put(`http://192.168.0.105:5000/ImportHolder/${editingId}`, updatedItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -138,8 +138,8 @@ export default function MedicinesPage() {
                     sum: item.sum,
                     date: item.date
                 };
-                await axios.post("http://172.20.10.2:5000/Import", formattedItem);
-                await axios.delete(`http://172.20.10.2:5000/ImportHolder/${item.id}`);
+                await axios.post("http://192.168.0.105:5000/Import", formattedItem);
+                await axios.delete(`http://192.168.0.105:5000/ImportHolder/${item.id}`);
             }));
             router.push("/pages/inventory/coming");
         } catch (err) {
@@ -148,7 +148,7 @@ export default function MedicinesPage() {
         }
     };
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Client").then((res) => {
+        axios.get("http://192.168.0.105:5000/Client").then((res) => {
             setMadecine(res.data)
         }).catch((err) => {
             console.log(err)
