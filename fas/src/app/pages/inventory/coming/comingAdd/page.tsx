@@ -6,12 +6,22 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 
+// {
+//     "id": "cceb",
+//     "name": "abdugani",
+//     "quantity": 20,
+//     "cost": 2000,
+//     "sell": 2222,
+//     "sum": 0,
+//     "date": "2025-02-25"
+//   }
+
 interface ComingItem {
     id: number | string;
     name: string;
     quantity: number;
-    purchasePrice: number;
-    sellingPrice: number;
+    cost: number;
+    sell: number;
     sum: number;
     date: string;
 }
@@ -20,20 +30,20 @@ export default function MedicinesPage() {
     const router = useRouter();
     const [medicineName, setMedicineName] = useState("");
     const [quantity, setQuantity] = useState<number>(0);
-    const [purchasePrice, setPurchasePrice] = useState<number>(0);
-    const [sellingPrice, setSellingPrice] = useState<number>(0);
-    const [sum, setSum] = useState<number>(quantity*purchasePrice);
+    const [cost, setcost] = useState<number>(0);
+    const [sell, setsell] = useState<number>(0);
+    const [sum, setSum] = useState<number>(quantity*cost);
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [comingItems, setComingItems] = useState<ComingItem[]>([]);
     const [editingId, setEditingId] = useState<number | string | null>(null);
     const [madecine, setMadecine] = useState<{ name: string }[]>([])
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/ImportHolder")
+        axios.get("http://172.18.0.55:5000/ImportHolder")
             .then((response) => {
                 const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; quantity: number; sum: number; date: string }) => ({
                     ...item,
-                    purchasePrice: item.cost,
-                    sellingPrice: item.sell,
+                    cost: item.cost,
+                    sell: item.sell,
                 }));
                 setComingItems(items);
             })
@@ -44,28 +54,28 @@ export default function MedicinesPage() {
             const newItem = {
                 name: medicineName.trim(),
                 quantity, // already a number
-                cost: purchasePrice,
-                sell: sellingPrice,
+                cost: cost,
+                sell: sell,
                 sum,
                 date,
             };
 
 
 
-            axios.post("http://172.20.10.2:5000/ImportHolder", newItem)
+            axios.post("http://172.18.0.55:5000/ImportHolder", newItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
-                        purchasePrice: response.data.cost,
-                        sellingPrice: response.data.sell,
+                        cost: response.data.cost,
+                        sell: response.data.sell,
                     };
                     setComingItems((prev) => [responseItem, ...prev]);
                     // Reset inputs
                     setMedicineName("");
                     setQuantity(0);
-                    setPurchasePrice(0);
-                    setSellingPrice(0);
-                    setSum(quantity*purchasePrice);
+                    setcost(0);
+                    setsell(0);
+                    setSum(quantity*cost);
                     setDate(new Date().toISOString().split("T")[0]);
                 })
                 .catch((err) => console.error("Error adding item:", err));
@@ -73,7 +83,7 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number | string) => {
-        axios.delete(`http://172.20.10.2:5000/ImportHolder/${id}`)
+        axios.delete(`http://172.18.0.55:5000/ImportHolder/${id}`)
             .then(() => {
                 setComingItems((prev) => prev.filter((item) => item.id !== id));
             })
@@ -84,9 +94,9 @@ export default function MedicinesPage() {
         setEditingId(item.id);
         setMedicineName(item.name);
         setQuantity(item.quantity);
-        setPurchasePrice(item.purchasePrice);
-        setSellingPrice(item.sellingPrice);
-        setSum(item.quantity*item.purchasePrice);
+        setcost(item.cost);
+        setsell(item.sell);
+        setSum(item.quantity*item.cost);
         setDate(item.date);
     };
 
@@ -98,18 +108,18 @@ export default function MedicinesPage() {
                 ...originalItem,
                 name: medicineName.trim(),
                 quantity,
-                cost: purchasePrice,
-                sell: sellingPrice,
+                cost: cost,
+                sell: sell,
                 sum,
                 date
             };
 
-            axios.put(`http://172.20.10.2:5000/ImportHolder/${editingId}`, updatedItem)
+            axios.put(`http://172.18.0.55:5000/ImportHolder/${editingId}`, updatedItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
-                        purchasePrice: response.data.cost,
-                        sellingPrice: response.data.sell,
+                        cost: response.data.cost,
+                        sell: response.data.sell,
                     };
                     setComingItems((prev) =>
                         prev.map((item) => (item.id === editingId ? responseItem : item))
@@ -117,29 +127,28 @@ export default function MedicinesPage() {
                     // Reset inputs
                     setMedicineName("");
                     setQuantity(0);
-                    setPurchasePrice(0);
-                    setSellingPrice(0);
-                    setSum(quantity*purchasePrice);
+                    setcost(0);
+                    setsell(0);
+                    setSum(quantity*cost);
                     setDate(new Date().toISOString().split("T")[0]);
                     setEditingId(null);
                 })
                 .catch((err) => console.error("Error updating item:", err));
         }
     };
-    console.log("Fucking hell")
     const handleSaveAll = async () => {
         try {
             await Promise.all(comingItems.map(async (item) => {
                 const formattedItem = {
                     name: item.name,
                     quantity: item.quantity,
-                    cost: item.purchasePrice,
-                    sell: item.sellingPrice,
-                    sum: item.sum,
+                    cost: item.cost,
+                    sell: item.sell,
+                    sum: item.cost*item.quantity,
                     date: item.date
                 };
-                await axios.post("http://172.20.10.2:5000/Import", formattedItem);
-                await axios.delete(`http://172.20.10.2:5000/ImportHolder/${item.id}`);
+                await axios.post("http://172.18.0.55:5000/Import", formattedItem);
+                await axios.delete(`http://172.18.0.55:5000/ImportHolder/${item.id}`);
             }));
             router.push("/pages/inventory/coming");
         } catch (err) {
@@ -148,7 +157,7 @@ export default function MedicinesPage() {
         }
     };
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Client").then((res) => {
+        axios.get("http://172.18.0.55:5000/Client").then((res) => {
             setMadecine(res.data)
         }).catch((err) => {
             console.log(err)
@@ -205,9 +214,9 @@ export default function MedicinesPage() {
                             <input
                                 title="ц. покуп."
                                 type="number"
-                                value={purchasePrice === 0 ? "" : purchasePrice}
+                                value={cost === 0 ? "" : cost}
                                 onChange={(e) =>
-                                    setPurchasePrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                    setcost(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                 }
                                 className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                             />
@@ -217,9 +226,9 @@ export default function MedicinesPage() {
                             <input
                                 title="ц. прод."
                                 type="number"
-                                value={sellingPrice === 0 ? "" : sellingPrice}
+                                value={sell === 0 ? "" : sell}
                                 onChange={(e) =>
-                                    setSellingPrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                    setsell(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                 }
                                 className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                             />
@@ -229,7 +238,7 @@ export default function MedicinesPage() {
                             <input
                                 title="сумма."
                                 type="number"
-                                value={quantity*purchasePrice}
+                                value={quantity*cost}
                                 onChange={(e) =>
                                     setSum(e.target.value === "" ? 0 : e.target.valueAsNumber)
                                 }
@@ -299,8 +308,8 @@ export default function MedicinesPage() {
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.id}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.name}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.quantity}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.purchasePrice}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sellingPrice}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.cost}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sell}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sum}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-right">
