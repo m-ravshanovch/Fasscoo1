@@ -56,7 +56,7 @@ export default function MedicinesPage() {
                 quantity, // already a number
                 cost: cost,
                 sell: sell,
-                sum,
+                sum:quantity*cost,
                 date,
             };
 
@@ -110,7 +110,7 @@ export default function MedicinesPage() {
                 quantity,
                 cost: cost,
                 sell: sell,
-                sum,
+                sum:sum,
                 date
             };
 
@@ -157,7 +157,7 @@ export default function MedicinesPage() {
         }
     };
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/Client").then((res) => {
+        axios.get("http://192.168.0.105:5000/Medicine").then((res) => {
             setMadecine(res.data)
         }).catch((err) => {
             console.log(err)
