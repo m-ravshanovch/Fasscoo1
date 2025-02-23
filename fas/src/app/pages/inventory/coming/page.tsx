@@ -50,7 +50,7 @@ export default function Home() {
     return (
         <div className="md:p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
             <div className="w-full flex justify-end">
-                <button className="px-3 rounded-lg text-xl active:opacity-80">
+                <button className="px-3 rounded-lg text-xl active:opacity-80" title="Back">
                     <Link href={'/pages/inventory/'}>
                         <Image src={'/back-button.png'} width={32} height={32} alt="back-button" />
                     </Link>
