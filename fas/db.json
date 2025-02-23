@@ -131,41 +131,32 @@
       "date": "2025-02-25"
     },
     {
-      "id": "eb15",
-      "name": "abdugani",
-      "quantity": 4243,
-      "cost": 23432,
-      "sell": 4234,
-      "sum": 99421976,
-      "date": "2025-02-23"
-    },
-    {
-      "id": "898c",
-      "name": "aziza",
-      "quantity": 232,
-      "cost": 232,
-      "sell": 233,
-      "sum": 53824,
-      "date": "2025-02-23"
-    },
-    {
-      "id": "6200",
-      "name": "aziza",
-      "quantity": 434,
-      "cost": 345,
-      "sell": 345,
-      "sum": 149730,
+      "id": "b354",
+      "name": "muhammadqodir",
+      "quantity": 30,
+      "cost": 200,
+      "sell": 200,
+      "sum": 0,
       "date": "2025-02-23"
     }
   ],
   "ImportHolder": [
     {
-      "id": "4e41",
-      "name": "dftrdc",
-      "quantity": 35,
-      "cost": 547,
-      "sell": 767,
-      "sum": 19145,
+      "id": "9ac5",
+      "name": "wadaw",
+      "quantity": 3333,
+      "cost": 232,
+      "sell": 2332,
+      "sum": 0,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "daa1",
+      "name": "wdaaw",
+      "quantity": 213123,
+      "cost": 123123,
+      "sell": 1312,
+      "sum": 0,
       "date": "2025-02-23"
     }
   ],
@@ -275,42 +266,6 @@
       "sold": 11,
       "cost": 11,
       "client": "aziz",
-      "paymentType": "karta",
-      "date": "2025-02-23"
-    },
-    {
-      "id": "e893",
-      "name": "parasitamol",
-      "sold": 12,
-      "cost": 12,
-      "client": "abdugani",
-      "paymentType": "naqt",
-      "date": "2025-02-23"
-    },
-    {
-      "id": "7555",
-      "name": "sitramon",
-      "sold": 12,
-      "cost": 12,
-      "client": "muhammadqodir",
-      "paymentType": "apteka",
-      "date": "2025-02-23"
-    },
-    {
-      "id": "9fb5",
-      "name": "kupin",
-      "sold": 122,
-      "cost": 444,
-      "client": "muhammadqodir",
-      "paymentType": "naqt",
-      "date": "2025-02-23"
-    },
-    {
-      "id": "e85a",
-      "name": "sitramon",
-      "sold": 312,
-      "cost": 2312,
-      "client": "abdugani",
       "paymentType": "karta",
       "date": "2025-02-23"
     }
