@@ -7,7 +7,7 @@ import Image from "next/image";
 import axios from "axios";
 
 interface ComingItem {
-    id: number;
+    id: number | string;
     name: string;
     quantity: number;
     purchasePrice: number;
@@ -25,29 +25,42 @@ export default function MedicinesPage() {
     const [sum, setSum] = useState("");
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [comingItems, setComingItems] = useState<ComingItem[]>([]);
-    const [editingId, setEditingId] = useState<number | null>(null);
+    const [editingId, setEditingId] = useState<number | string | null>(null);
 
-    // Fetch initial ImportHolder items using axios
+    // Fetch initial ImportHolder items using axios and map cost -> purchasePrice, sell -> sellingPrice
     useEffect(() => {
         axios.get("http://172.18.0.55:5000/ImportHolder")
-            .then((response) => setComingItems(response.data))
+            .then((response) => {
+                const items = response.data.map((item: any) => ({
+                    ...item,
+                    purchasePrice: item.cost,
+                    sellingPrice: item.sell,
+                }));
+                setComingItems(items);
+            })
             .catch((err) => console.error("Error fetching ImportHolder items:", err));
     }, []);
 
     const handleAdd = () => {
         if (medicineName.trim()) {
-            const newItem: Omit<ComingItem, "id"> = {
+            const newItem = {
                 name: medicineName.trim(),
                 quantity: Number(quantity),
-                purchasePrice: Number(purchasePrice),
-                sellingPrice: Number(sellingPrice),
+                cost: Number(purchasePrice),      // use cost
+                sell: Number(sellingPrice),       // use sell
                 sum: Number(sum),
                 date,
             };
 
             axios.post("http://172.18.0.55:5000/ImportHolder", newItem)
                 .then((response) => {
-                    setComingItems((prev) => [response.data, ...prev]);
+                    // Map response data to our local structure
+                    const responseItem = {
+                        ...response.data,
+                        purchasePrice: response.data.cost,
+                        sellingPrice: response.data.sell,
+                    };
+                    setComingItems((prev) => [responseItem, ...prev]);
                     // Reset inputs
                     setMedicineName("");
                     setQuantity("");
@@ -60,7 +73,7 @@ export default function MedicinesPage() {
         }
     };
 
-    const handleRemove = (id: number) => {
+    const handleRemove = (id: number | string) => {
         axios.delete(`http://172.18.0.55:5000/ImportHolder/${id}`)
             .then(() => {
                 setComingItems((prev) => prev.filter((item) => item.id !== id));
@@ -86,16 +99,21 @@ export default function MedicinesPage() {
                 ...originalItem,
                 name: medicineName.trim(),
                 quantity: Number(quantity),
-                purchasePrice: Number(purchasePrice),
-                sellingPrice: Number(sellingPrice),
+                cost: Number(purchasePrice),      // update using cost
+                sell: Number(sellingPrice),       // update using sell
                 sum: Number(sum),
                 date
             };
 
             axios.put(`http://172.18.0.55:5000/ImportHolder/${editingId}`, updatedItem)
                 .then((response) => {
+                    const responseItem = {
+                        ...response.data,
+                        purchasePrice: response.data.cost,
+                        sellingPrice: response.data.sell,
+                    };
                     setComingItems((prev) =>
-                        prev.map((item) => (item.id === editingId ? response.data : item))
+                        prev.map((item) => (item.id === editingId ? responseItem : item))
                     );
                     // Reset inputs
                     setMedicineName("");
@@ -116,8 +134,8 @@ export default function MedicinesPage() {
                 const formattedItem = {
                     name: item.name,
                     quantity: Number(item.quantity),
-                    purchasePrice: Number(item.purchasePrice),
-                    sellingPrice: Number(item.sellingPrice),
+                    cost: Number(item.purchasePrice),    // convert purchasePrice to cost
+                    sell: Number(item.sellingPrice),       // convert sellingPrice to sell
                     sum: Number(item.sum),
                     date: item.date
                 };

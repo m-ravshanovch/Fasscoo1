@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 
 interface ComingItem {
-    id: number,
+    id: number | string,
     name: string,
     quantity: number,
     purchasePrice: number,
@@ -22,8 +22,14 @@ export default function Home() {
     useEffect(() => {
         axios.get("http://172.18.0.55:5000/Import")
             .then((res) => {
-                setComingData(res.data)
-                console.log(res.data)
+                // map the fields so that cost => purchasePrice and sell => sellingPrice
+                const mappedData = res.data.map((item: any) => ({
+                    ...item,
+                    purchasePrice: item.cost,
+                    sellingPrice: item.sell
+                }))
+                setComingData(mappedData)
+                console.log(mappedData)
             })
             .catch((err) => {
                 console.log(err)
