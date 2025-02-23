@@ -8,12 +8,12 @@
   ],
   "Medicine": [
     {
-      "id": "1",
-      "name": "Amlodipine"
-    },
-    {
       "id": "5efa",
       "name": "taylolhot"
+    },
+    {
+      "id": "ac92",
+      "name": "yulduzcha"
     }
   ],
   "Client": [
@@ -34,91 +34,94 @@
   ],
   "Import": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Parasitamol",
-      "sell": 1500,
-      "cost": 1000,
-      "sold": 12,
+      "quantity": 12,
+      "purchasePrice": 1000,
+      "sellingPrice": 1500,
+      "sum": 18000,
       "date": "2021-06-01"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Ibuprofen",
-      "sell": 2000,
-      "cost": 1500,
-      "sold": 10,
+      "quantity": 10,
+      "purchasePrice": 1500,
+      "sellingPrice": 2000,
+      "sum": 20000,
       "date": "2021-06-02"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Amoxicillin",
-      "sell": 2500,
-      "cost": 2000,
-      "sold": 20,
+      "quantity": 20,
+      "purchasePrice": 2000,
+      "sellingPrice": 2500,
+      "sum": 50000,
       "date": "2021-06-03"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Cetirizine",
-      "sell": 1600,
-      "cost": 1200,
-      "sold": 15,
+      "quantity": 15,
+      "purchasePrice": 1200,
+      "sellingPrice": 1600,
+      "sum": 24000,
       "date": "2021-06-04"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Metformin",
-      "sell": 2300,
-      "cost": 1800,
-      "sold": 25,
+      "quantity": 25,
+      "purchasePrice": 1800,
+      "sellingPrice": 2300,
+      "sum": 57500,
       "date": "2021-06-05"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Amlodipine",
-      "sell": 2100,
-      "cost": 1600,
-      "sold": 18,
+      "quantity": 18,
+      "purchasePrice": 1600,
+      "sellingPrice": 2100,
+      "sum": 37800,
       "date": "2021-06-06"
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "Atorvastatin",
-      "sell": 2700,
-      "cost": 2100,
-      "sold": 12,
+      "quantity": 12,
+      "purchasePrice": 2100,
+      "sellingPrice": 2700,
+      "sum": 32400,
       "date": "2021-06-07"
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "Lisinopril",
-      "sell": 2400,
-      "cost": 1900,
-      "sold": 30,
+      "quantity": 30,
+      "purchasePrice": 1900,
+      "sellingPrice": 2400,
+      "sum": 72000,
       "date": "2021-06-08"
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "Omeprazole",
-      "sell": 1500,
-      "cost": 1100,
-      "sold": 22,
+      "quantity": 22,
+      "purchasePrice": 1100,
+      "sellingPrice": 1500,
+      "sum": 33000,
       "date": "2021-06-09"
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "Losartan",
-      "sell": 2200,
-      "cost": 1700,
-      "sold": 17,
+      "quantity": 17,
+      "purchasePrice": 1700,
+      "sellingPrice": 2200,
+      "sum": 37400,
       "date": "2021-06-10"
-    },
-    {
-      "quantity": 1,
-      "purchasePrice": 1,
-      "sellingPrice": 1,
-      "sum": 1,
-      "date": "2025-02-22"
     },
     {
       "id": "d68c",
@@ -137,18 +140,36 @@
       "sellingPrice": 2,
       "sum": 2,
       "date": "2025-02-22"
-    }
-  ],
-  "ImportHolder": [
+    },
     {
-      "id": "10",
+      "id": "e6d3",
+      "name": "zvyozdichka",
+      "quantity": 100,
+      "purchasePrice": 10000,
+      "sellingPrice": 10000,
+      "sum": 100000,
+      "date": "2025-02-23"
+    },
+    {
+      "id": "7e02",
       "name": "Losartan",
-      "cost": 1700,
-      "fromWhere": "Nukus",
-      "toWhere": "Fergana",
-      "sold": 17
+      "quantity": 17,
+      "purchasePrice": 1700,
+      "sellingPrice": 1700,
+      "sum": 28900,
+      "date": "2025-02-22"
+    },
+    {
+      "id": "27bc",
+      "name": "griphot",
+      "quantity": 1000,
+      "purchasePrice": 5000,
+      "sellingPrice": 7500,
+      "sum": 750000,
+      "date": "2025-02-23"
     }
   ],
+  "ImportHolder": [],
   "Export": [
     {
       "id": "1",
@@ -249,6 +270,26 @@
       "fromWhere": "Nukus",
       "toWhere": "Fergana",
       "sold": 17
+    },
+    {
+      "id": "5289",
+      "name": "",
+      "sold": 0,
+      "cost": 0,
+      "client": "",
+      "paymentType": "",
+      "date": "",
+      "": "2023-01-01"
+    },
+    {
+      "id": "0436",
+      "name": "",
+      "sold": 0,
+      "cost": 0,
+      "client": "",
+      "paymentType": "",
+      "date": "",
+      "": "1111-11-11"
     }
   ],
   "comingAdd": [

@@ -18,24 +18,42 @@ export default function Home() {
     }[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Export/")
-            .then((res) => {
-                setImportData(res.data)
-                console.log(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        fetchData()
     }, [])
 
+    const fetchData = async () => {
+        try {
+            const res = await axios.get("http://172.18.0.55:5000/Export/")
+            setImportData(res.data)
+        } catch (err) {
+            console.error("Error fetching data:", err)
+        }
+    }
+
     const filteredData = importData.filter((item) => {
-        const matchesName = item.name.toLowerCase().includes(search.toLowerCase())
-        const matchesClient = item.client.toLowerCase().includes(search.toLowerCase())
-        const matchesDate = item.date.toLowerCase().includes(dateFilter.toLowerCase())
-        return (matchesName || matchesClient) && matchesDate
+        // Case insensitive search for name or client
+        const searchTerm = search.toLowerCase().trim()
+        const matchesSearch = !searchTerm || 
+            item.name.toLowerCase().includes(searchTerm) || 
+            item.client.toLowerCase().includes(searchTerm)
+
+        // Date filtering
+        const dateSearch = dateFilter.trim()
+        const matchesDate = !dateSearch || item.date.includes(dateSearch)
+
+        return matchesSearch && matchesDate
     })
+
     const totalSum = filteredData.reduce((acc, item) => acc + item.cost * item.sold, 0)
     const totalSold = filteredData.reduce((acc, item) => acc + item.sold, 0)
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+
+    const handleDateFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDateFilter(e.target.value)
+    }
 
     return (
         <div className="md:p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
@@ -55,7 +73,8 @@ export default function Home() {
                 <input
                     type="text"
                     placeholder="Поиск (лек. или клиент)"
-                    onChange={e => setSearch(e.target.value)}
+                    value={search}
+                    onChange={handleSearch}
                     className="border-2 border-[#0D1633] border-solid rounded-md w-64 py-1 text-center"
                 />
             </div>
@@ -63,9 +82,10 @@ export default function Home() {
             <div className="w-full place-items-center">
                 <div className="flex gap-x-5 justify-center mt-4">
                     <input
-                        type="text"
+                        type="date"
                         placeholder="Фильтр по дате"
-                        onChange={e => setDateFilter(e.target.value)}
+                        value={dateFilter}
+                        onChange={handleDateFilter}
                         className="border-2 border-[#0D1633] border-solid rounded-md w-64 py-1 text-center"
                     />
 

@@ -112,9 +112,18 @@ export default function MedicinesPage() {
 
     const handleSaveAll = async () => {
         try {
-            await Promise.all(comingItems.map(item => 
-                axios.post("http://172.18.0.55:5000/Import", item)
-            ));
+            await Promise.all(comingItems.map(async (item) => {
+                const formattedItem = {
+                    name: item.name,
+                    quantity: Number(item.quantity),
+                    purchasePrice: Number(item.purchasePrice),
+                    sellingPrice: Number(item.sellingPrice),
+                    sum: Number(item.sum),
+                    date: item.date
+                };
+                await axios.post("http://172.18.0.55:5000/Import", formattedItem);
+                await axios.delete(`http://172.18.0.55:5000/ImportHolder/${item.id}`);
+            }));
             router.push("/pages/inventory/coming");
         } catch (err) {
             console.error("Ошибка при сохранении товаров", err);
