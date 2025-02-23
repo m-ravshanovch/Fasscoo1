@@ -31,8 +31,10 @@ export default function Home() {
     }, [])
 
     const filteredData = comingData.filter((item) => {
-        const matchesName = item.name.toLowerCase().includes(search.toLowerCase())
-        const matchesDate = dateFilter ? item.date.includes(dateFilter) : true
+        const itemName = item.name || ""
+        const matchesName = itemName.toLowerCase().includes(search.toLowerCase())
+        const itemDate = item.date || ""
+        const matchesDate = dateFilter ? itemDate.includes(dateFilter) : true
         return matchesName && matchesDate
     })
 

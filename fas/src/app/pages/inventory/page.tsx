@@ -12,9 +12,9 @@ export default function Home() {
             console.log(err)
         })
     }, [])
-    const filteredData = importData.filter((item)=>(
-        item.name.toLowerCase().includes(search.toLowerCase())
-    ))
+    const filteredData = importData.filter((item) => 
+        item?.name?.toLowerCase().includes(search.toLowerCase()) || false
+    )
     return (
         <div className="p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
             <div className="w-full flex justify-end">
