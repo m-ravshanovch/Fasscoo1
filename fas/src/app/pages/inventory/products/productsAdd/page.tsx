@@ -144,7 +144,7 @@ export default function MedicinesPage() {
     return (
         <div className="flex flex-col items-center w-screen p-6">
             <div className="absolute top-4 right-4">
-                <Link href="/pages/inventory/coming/">
+                <Link href="/pages/inventory/products/">
                     <Image
                         src="/back-button.png"
                         width={32}
