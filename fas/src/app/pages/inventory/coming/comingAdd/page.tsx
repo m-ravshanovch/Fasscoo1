@@ -126,7 +126,7 @@ export default function MedicinesPage() {
                 .catch((err) => console.error("Error updating item:", err));
         }
     };
-
+    console.log("Fucking hell")
     const handleSaveAll = async () => {
         try {
             await Promise.all(comingItems.map(async (item) => {
