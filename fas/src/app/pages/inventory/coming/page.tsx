@@ -99,14 +99,14 @@ export default function Home() {
                             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Сумма</th>
                             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Дата</th>
                         </tr>
-                        <tr>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ОБЩИЙ</th>
-                            <th className="px-4 py-2"></th>
-                            <th className="px-4 py-2">{isNaN(totalSold) ? 0 : totalSold}</th>
-                            <th className="px-4 py-2"></th>
-                            <th className="px-4 py-2"></th>
-                            <th className="px-4 py-2 text-right">{isNaN(totalSum) ? 0 : totalSum} sum</th>
-                            <th className="px-4 py-2"></th>
+                        <tr className="border-2">
+                            <th className=" px-4 py-2 text-left text-sm font-medium text-gray-500">ОБЩИЙ</th>
+                            <th className=" px-4 py-2"></th>
+                            <th className=" text-left px-4 py-2">{isNaN(totalSold) ? 0 : totalSold}</th>
+                            <th className=" px-4 py-2"></th>
+                            <th className=" px-4 py-2"></th>
+                            <th className=" px-4 py-2 text-right">{isNaN(totalSum) ? 0 : totalSum} sum</th>
+                            <th className=" px-4 py-2"></th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">

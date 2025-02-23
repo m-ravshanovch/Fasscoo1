@@ -125,7 +125,7 @@ export default function Home() {
                         <tr>
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ОБЩИЙ</th>
                             <th className="px-4 py-2"></th>
-                            <th className="px-4 py-2">{isNaN(totalSold) ? 0 : totalSold}</th>
+                            <th className="px-4 text-left py-2">{isNaN(totalSold) ? 0 : totalSold}</th>
                             <th className="px-4 py-2"></th>
                             <th className="px-4 py-2 text-right">{isNaN(totalSum) ? 0 : totalSum} sum</th>
                             <th className="px-4 py-2"></th>
@@ -139,8 +139,8 @@ export default function Home() {
                                 <td className="px-4 py-2 text-left text-sm text-gray-900">{res.id}</td>
                                 <td className="px-4 py-2 text-left text-sm text-gray-900">{res.name}</td>
                                 <td className="px-4 py-2 text-left text-sm text-gray-900">{res.sold}</td>
-                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost}</td>
-                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost*res.sold}</td>
+                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost} sum</td>
+                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost*res.sold} sum</td>
                                 <td className="px-4 py-2 text-right text-sm text-gray-900">{res.client}</td>
                                 <td className="px-4 py-2 text-right text-sm text-gray-900">{res.paymentType}</td>
                                 <td className="px-4 py-2 text-right text-sm text-gray-900">{res.date}</td>
