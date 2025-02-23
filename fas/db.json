@@ -158,7 +158,17 @@
       "date": "2025-02-23"
     }
   ],
-  "ImportHolder": [],
+  "ImportHolder": [
+    {
+      "id": "4e41",
+      "name": "dftrdc",
+      "quantity": 35,
+      "cost": 547,
+      "sell": 767,
+      "sum": 19145,
+      "date": "2025-02-23"
+    }
+  ],
   "Export": [
     {
       "id": "b382",
@@ -293,6 +303,15 @@
       "cost": 444,
       "client": "muhammadqodir",
       "paymentType": "naqt",
+      "date": "2025-02-23"
+    },
+    {
+      "id": "e85a",
+      "name": "sitramon",
+      "sold": 312,
+      "cost": 2312,
+      "client": "abdugani",
+      "paymentType": "karta",
       "date": "2025-02-23"
     }
   ],
