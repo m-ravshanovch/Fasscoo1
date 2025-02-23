@@ -22,7 +22,7 @@ export default function Home() {
     const [comingData, setComingData] = useState<ComingItem[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import")
+        axios.get("http://172.18.0.55:5000/Import")
             .then((res) => {
                 // map the fields so that cost => purchasePrice and sell => sellingPrice
                 const mappedData = res.data.map((item: ComingItem) => ({
@@ -87,7 +87,7 @@ export default function Home() {
                 </button>
             </div>
 
-            <div className="overflow-x-auto w-full max-w-4xl">
+            <div className="overflow-x-auto w-full max-w-full">
                 <table className="min-w-full divide-y divide-gray-200 border">
                     <thead className="bg-gray-50">
                         <tr>

@@ -28,7 +28,7 @@ export default function MedicinesPage() {
     const [editingId, setEditingId] = useState<number | string | null>(null);
     const [madecine, setMadecine] = useState<{ name: string }[]>([])
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/ImportHolder")
+        axios.get("http://172.18.0.55:5000/ImportHolder")
             .then((response) => {
                 const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; quantity: number; sum: number; date: string }) => ({
                     ...item,
@@ -50,7 +50,7 @@ export default function MedicinesPage() {
                 date,
             };
 
-            axios.post("http://172.20.10.2:5000/ImportHolder", newItem)
+            axios.post("http://172.18.0.55:5000/ImportHolder", newItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -71,7 +71,7 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number | string) => {
-        axios.delete(`http://172.20.10.2:5000/ImportHolder/${id}`)
+        axios.delete(`http://172.18.0.55:5000/ImportHolder/${id}`)
             .then(() => {
                 setComingItems((prev) => prev.filter((item) => item.id !== id));
             })
@@ -102,7 +102,7 @@ export default function MedicinesPage() {
                 date
             };
 
-            axios.put(`http://172.20.10.2:5000/ImportHolder/${editingId}`, updatedItem)
+            axios.put(`http://172.18.0.55:5000/ImportHolder/${editingId}`, updatedItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -136,8 +136,8 @@ export default function MedicinesPage() {
                     sum: item.sum,
                     date: item.date
                 };
-                await axios.post("http://172.20.10.2:5000/Import", formattedItem);
-                await axios.delete(`http://172.20.10.2:5000/ImportHolder/${item.id}`);
+                await axios.post("http://172.18.0.55:5000/Import", formattedItem);
+                await axios.delete(`http://172.18.0.55:5000/ImportHolder/${item.id}`);
             }));
             router.push("/pages/inventory/coming");
         } catch (err) {
@@ -146,7 +146,7 @@ export default function MedicinesPage() {
         }
     };
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Client").then((res) => {
+        axios.get("http://172.18.0.55:5000/Client").then((res) => {
             setMadecine(res.data)
         }).catch((err) => {
             console.log(err)
@@ -169,78 +169,76 @@ export default function MedicinesPage() {
             <h1 className="text-4xl font-bold mb-4">приход</h1>
 
             <div className="w-full ">
-                <div className="grid grid-cols-2 md:grid-cols-6  gap-x-4 gap-y-4 ">
-                    <div >
-                        <label>Лек.</label>
-                        <input
-                            list="medicine-list"
-                            type="text"
-                            onChange={(e) => setMedicineName(e.target.value)}
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-                        <datalist id="medicine-list">
-                            {madecine && madecine.map((res, i) => (
-                                <option key={i} value={res.name}></option>
-                            ))}
-                        </datalist>
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-x-4 gap-y-4">
+                        <div>
+                            <label>Лек.</label>
+                            <input
+                                title="Лек."
+                                list="medicine-list"
+                                type="text"
+                                onChange={(e) => setMedicineName(e.target.value)}
+                                className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                            />
+                            <datalist id="medicine-list">
+                                {madecine && madecine.map((res, i) => (
+                                    <option key={i} value={res.name}></option>
+                                ))}
+                            </datalist>
+                        </div>
+                        <div>
+                            <label>кол.</label>
+                            <input
+                                title="кол."
+                                type="number"
+                                onChange={(e) =>
+                                    setQuantity(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                }
+                                className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                            />
+                        </div>
+                        <div>
+                            <label>ц. покуп.</label>
+                            <input
+                                title="ц. покуп."
+                                type="number"
+                                onChange={(e) =>
+                                    setPurchasePrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                }
+                                className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                            />
+                        </div>
+                        <div>
+                            <label>ц. прод.</label>
+                            <input
+                                title="ц. прод."
+                                type="number"
+                                onChange={(e) =>
+                                    setSellingPrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                }
+                                className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                            />
+                        </div>
+                        <div>
+                            <label>сумма.</label>
+                            <input
+                                title="сумма."
+                                value={quantity*purchasePrice}
+                                type="number"
+                                className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                                readOnly
+                            />
+                        </div>
+                        <div>
+                            <label>дата.</label>
+                            <input
+                                title="дата."
+                                type="text"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label>кол.</label>
-
-                        <input
-
-                            type="number"
-                            onChange={(e) =>
-                                setQuantity(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                            }
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-
-                    </div>
-                    <div>
-                        <label>ц. покуп. </label>
-
-                        <input
-                            type="number"
-                            onChange={(e) =>
-                                setPurchasePrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                            }
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-                    </div>
-                    <div>
-                        <label>ц. прод. </label>
-
-                        <input
-                            type="number"
-                            onChange={(e) =>
-                                setSellingPrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                            }
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-                    </div>
-                    <div>
-                        <label>сумма.</label>
-
-                        <input
-                            type="number"
-                            onChange={(e) =>
-                                setSum(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                            }
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-                    </div>
-                    <div>
-                        <label>дата.</label>
-
-                        <input
-                            type="text"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-                    </div>
-                </div>
 
             </div>
             <div className="flex justify-end w-full mt-5">

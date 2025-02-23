@@ -10,7 +10,6 @@ interface productsItem {
     name: string,
     cost: number,          // This now represents the sale price in the table.
     sold: number,
-    sum: number,
     client: string,
     paymentType: string,
     date: string, // Optional field for the procurement price.
@@ -19,10 +18,10 @@ interface productsItem {
 export default function Home() {
     const [search, setSearch] = useState("")
     const [dateFilter, setDateFilter] = useState("")
-    const [comingData, setComingData] = useState<productsItem[]>([])
+    const [goingData, setGoingData] = useState<productsItem[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Export")
+        axios.get("http://172.18.0.55:5000/Export")
             .then((res) => {
                 // Map the fields so that the procurement price (cost) is taken from "cost"
                 // and sale price (cost) defaults to "sell" if available, otherwise fallback to "cost".
@@ -30,7 +29,7 @@ export default function Home() {
                     ...item,
                     cost: item.cost,
                 }))
-                setComingData(mappedData)
+                setGoingData(mappedData)
                 console.log(mappedData)
             })
             .catch((err) => {
@@ -38,7 +37,7 @@ export default function Home() {
             })
     }, [])
 
-    const filteredData = comingData.filter((item) => {
+    const filteredData = goingData.filter((item) => {
         const itemName = item.name || ""
         const matchesName = itemName.toLowerCase().includes(search.toLowerCase())
         const itemDate = item.date || ""
@@ -46,7 +45,7 @@ export default function Home() {
         return matchesName && matchesDate
     })
 
-    const totalSum = filteredData.reduce((acc, item) => acc + item.sum, 0)
+    const totalSum = filteredData.reduce((acc, item) => acc + item.sold*item.cost, 0)
     const totalSold = filteredData.reduce((acc, item) => acc + item.sold, 0)
 
     return (
@@ -60,7 +59,7 @@ export default function Home() {
             </div>
 
             <div className="font-bold text-4xl text-center">
-                приход товаров<br /> <span className="text-zinc-400 text-xl">список</span>
+                продажа<br /> <span className="text-zinc-400 text-xl">список</span>
             </div>
 
             <div className="w-full flex justify-center">
@@ -74,7 +73,7 @@ export default function Home() {
 
             <div className="w-full flex justify-center gap-x-5 mt-4">
                 <input
-                    type="text" 
+                    type="text"
                     placeholder="Фильтр по дате"
                     onChange={e => setDateFilter(e.target.value)}
                     className="border-2 border-[#0D1633] rounded-md w-64 py-1 text-center"
@@ -94,9 +93,10 @@ export default function Home() {
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ID</th>
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Лек.</th>
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Кол.</th>
-                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Закуп. Цена</th>
-                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Прод. Цена</th>
+                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Цена</th>
                             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Сумма</th>
+                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">клиент</th>
+                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Типоплаты</th>
                             <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Дата</th>
                         </tr>
                         <tr>
@@ -104,8 +104,9 @@ export default function Home() {
                             <th className="px-4 py-2"></th>
                             <th className="px-4 py-2">{isNaN(totalSold) ? 0 : totalSold}</th>
                             <th className="px-4 py-2"></th>
-                            <th className="px-4 py-2"></th>
                             <th className="px-4 py-2 text-right">{isNaN(totalSum) ? 0 : totalSum} sum</th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2"></th>
                             <th className="px-4 py-2"></th>
                         </tr>
                     </thead>
@@ -116,8 +117,9 @@ export default function Home() {
                                 <td className="px-4 py-2 text-left text-sm text-gray-900">{res.name}</td>
                                 <td className="px-4 py-2 text-left text-sm text-gray-900">{res.sold}</td>
                                 <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost}</td>
-                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost}</td>
-                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.sum} sum</td>
+                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.cost*res.sold}</td>
+                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.client}</td>
+                                <td className="px-4 py-2 text-right text-sm text-gray-900">{res.paymentType}</td>
                                 <td className="px-4 py-2 text-right text-sm text-gray-900">{res.date}</td>
                             </tr>
                         ))}

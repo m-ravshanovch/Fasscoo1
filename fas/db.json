@@ -126,82 +126,9 @@
       "sell": 2200,
       "sum": 37400,
       "date": "2021-06-10"
-    },
-    {
-      "id": "d68c",
-      "name": "b",
-      "quantity": 1,
-      "cost": 1,
-      "sell": 1,
-      "sum": 1,
-      "date": "2025-02-22"
-    },
-    {
-      "id": "7804",
-      "name": "c",
-      "quantity": 2,
-      "cost": 2,
-      "sell": 2,
-      "sum": 2,
-      "date": "2025-02-22"
-    },
-    {
-      "id": "e6d3",
-      "name": "zvyozdichka",
-      "quantity": 100,
-      "cost": 10000,
-      "sell": 10000,
-      "sum": 100000,
-      "date": "2025-02-23"
-    },
-    {
-      "id": "7e02",
-      "name": "Losartan",
-      "quantity": 17,
-      "cost": 1700,
-      "sell": 1700,
-      "sum": 28900,
-      "date": "2025-02-22"
-    },
-    {
-      "id": "27bc",
-      "name": "griphot",
-      "quantity": 1000,
-      "cost": 5000,
-      "sell": 7500,
-      "sum": 750000,
-      "date": "2025-02-23"
-    },
-    {
-      "id": "6575",
-      "name": "insty",
-      "quantity": 50,
-      "cost": 7000,
-      "sell": 10000,
-      "sum": 350000,
-      "date": "2025-02-23"
-    },
-    {
-      "id": "e903",
-      "name": "wdaw",
-      "quantity": 23,
-      "cost": 2323,
-      "sell": 32223,
-      "sum": 23010,
-      "date": "2025-02-23"
     }
   ],
-  "ImportHolder": [
-    {
-      "id": "cf8b",
-      "name": "dwawdad",
-      "quantity": 30000,
-      "cost": 2000120,
-      "sell": 2010219,
-      "sum": 50000,
-      "date": "2025-02-23"
-    }
-  ],
+  "ImportHolder": [],
   "Export": [
     {
       "id": "1",
@@ -294,44 +221,5 @@
       "date": "2021-10-06"
     }
   ],
-  "ExportHolder": [
-    {
-      "id": "10",
-      "name": "Losartan",
-      "cost": 1700,
-      "sold": 17,
-      "client": "shohruh",
-      "paymentType": "Naqd",
-      "date": "2021-10-06"
-    }
-  ],
-  "comingAdd": [
-    {
-      "id": "d91c",
-      "name": "a",
-      "quantity": 1,
-      "cost": 1,
-      "sell": 1,
-      "sum": 1,
-      "date": "2025-02-22"
-    },
-    {
-      "id": "d68c",
-      "name": "b",
-      "quantity": 1,
-      "cost": 1,
-      "sell": 1,
-      "sum": 1,
-      "date": "2025-02-22"
-    },
-    {
-      "id": "7804",
-      "name": "c",
-      "quantity": 2,
-      "cost": 2,
-      "sell": 2,
-      "sum": 2,
-      "date": "2025-02-22"
-    }
-  ]
+  "ExportHolder": []
 }

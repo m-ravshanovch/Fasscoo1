@@ -14,7 +14,7 @@ export default function MedicinesPage() {
     const [clientName, setClientName] = useState("");
     const [clients, setClients] = useState<Client[]>([]);
     const [editingId, setEditingId] = useState<number | null>(null);
-    const API_URL = "http://172.20.10.2:5000/Client";
+    const API_URL = "http://172.18.0.55:5000/Client";
 
     // Fetch clients on component mount
     useEffect(() => {

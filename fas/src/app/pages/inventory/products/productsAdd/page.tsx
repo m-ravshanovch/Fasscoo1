@@ -6,64 +6,67 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 
-interface ComingItem {
-    id: number | string;
-    name: string;
-    quantity: number;
-    purchasePrice: number;
-    sellingPrice: number;
-    sum: number;
-    date: string;
+interface productsItem {
+    id: number | string,
+    name: string,
+    cost: number,
+    sold: number,
+    client: string,
+    paymentType: string,
+    date: string,
 }
 
 export default function MedicinesPage() {
     const router = useRouter();
-    const [medicineName, setMedicineName] = useState("");
-    const [quantity, setQuantity] = useState<number>(0);
-    const [purchasePrice, setPurchasePrice] = useState<number>(0);
-    const [sellingPrice, setSellingPrice] = useState<number>(0);
-    const [sum, setSum] = useState<number>(0);
+    const [name, setname] = useState("");
+    const [sold, setsold] = useState<number>(0);
+    const [cost, setcost] = useState<number>(0);
+    // const [sum, setSum] = useState<number>(0);
+    const [client, setClient] = useState("");
+    const [paymentType, setPaymentType] = useState("");
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-    const [comingItems, setComingItems] = useState<ComingItem[]>([]);
+    const [ProductsItems, setProductsItems] = useState<productsItem[]>([]);
     const [editingId, setEditingId] = useState<number | string | null>(null);
-    const [madecine, setMadecine] = useState<{ name: string }[]>([])
+    const [madecine, setMedecine] = useState<{ name: string }[]>([]);
+
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/ImportHolder")
+        axios.get("http://172.18.0.55:5000/ExportHolder")
             .then((response) => {
-                const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; quantity: number; sum: number; date: string }) => ({
+                const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; sold: number; sum: number; date: string }) => ({
                     ...item,
                     purchasePrice: item.cost,
-                    sellingPrice: item.sell,
+                    cost: item.sell,
                 }));
-                setComingItems(items);
+                setProductsItems(items);
             })
-            .catch((err) => console.error("Error fetching ImportHolder items:", err));
+            .catch((err) => console.error("Error fetching ExportHolder items:", err));
     }, []);
+
     const handleAdd = () => {
-        if (medicineName.trim()) {
+        if (name.trim()) {
             const newItem = {
-                name: medicineName.trim(),
-                quantity, // already a number
-                cost: purchasePrice,
-                sell: sellingPrice,
-                sum,
+                name: name.trim(),
+                sold,
+                sell: cost,
+                client,
+                paymentType,
                 date,
             };
 
-            axios.post("http://172.20.10.2:5000/ImportHolder", newItem)
+            axios.post("http://172.18.0.55:5000/ExportHolder", newItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
                         purchasePrice: response.data.cost,
-                        sellingPrice: response.data.sell,
+                        cost: response.data.sell,
                     };
-                    setComingItems((prev) => [responseItem, ...prev]);
+                    setProductsItems((prev) => [responseItem, ...prev]);
                     // Reset inputs
-                    setMedicineName("");
-                    setQuantity(0);
-                    setPurchasePrice(0);
-                    setSellingPrice(0);
-                    setSum(0);
+                    setname("");
+                    setsold(0);
+                    setcost(0);
+                    setClient("");
+                    setPaymentType("");
                     setDate(new Date().toISOString().split("T")[0]);
                 })
                 .catch((err) => console.error("Error adding item:", err));
@@ -71,53 +74,53 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number | string) => {
-        axios.delete(`http://172.20.10.2:5000/ImportHolder/${id}`)
+        axios.delete(`http://172.18.0.55:5000/ExportHolder/${id}`)
             .then(() => {
-                setComingItems((prev) => prev.filter((item) => item.id !== id));
+                setProductsItems((prev) => prev.filter((item) => item.id !== id));
             })
             .catch((err) => console.error("Error removing item:", err));
     };
 
-    const handleEdit = (item: ComingItem) => {
+    const handleEdit = (item: productsItem) => {
         setEditingId(item.id);
-        setMedicineName(item.name);
-        setQuantity(item.quantity);
-        setPurchasePrice(item.purchasePrice);
-        setSellingPrice(item.sellingPrice);
-        setSum(item.sum);
+        setname(item.name);
+        setsold(item.sold);
+        setcost(item.cost);
         setDate(item.date);
+        setClient(item.client);
+        setPaymentType(item.paymentType);
     };
 
     const handleUpdate = () => {
-        if (editingId !== null && medicineName.trim()) {
-            const originalItem = comingItems.find((item) => item.id === editingId);
+        if (editingId !== null && name.trim()) {
+            const originalItem = ProductsItems.find((item) => item.id === editingId);
             if (!originalItem) return;
             const updatedItem = {
                 ...originalItem,
-                name: medicineName.trim(),
-                quantity,
-                cost: purchasePrice,
-                sell: sellingPrice,
-                sum,
+                name: name.trim(),
+                sold,
+                sell: cost,
+                client,
+                paymentType,
                 date
             };
 
-            axios.put(`http://172.20.10.2:5000/ImportHolder/${editingId}`, updatedItem)
+            axios.put(`http://172.18.0.55:5000/ExportHolder/${editingId}`, updatedItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
                         purchasePrice: response.data.cost,
-                        sellingPrice: response.data.sell,
+                        cost: response.data.sell,
                     };
-                    setComingItems((prev) =>
+                    setProductsItems((prev) =>
                         prev.map((item) => (item.id === editingId ? responseItem : item))
                     );
                     // Reset inputs
-                    setMedicineName("");
-                    setQuantity(0);
-                    setPurchasePrice(0);
-                    setSellingPrice(0);
-                    setSum(0);
+                    setname("");
+                    setsold(0);
+                    setcost(0);
+                    setClient("");
+                    setPaymentType("");
                     setDate(new Date().toISOString().split("T")[0]);
                     setEditingId(null);
                 })
@@ -127,37 +130,41 @@ export default function MedicinesPage() {
 
     const handleSaveAll = async () => {
         try {
-            await Promise.all(comingItems.map(async (item) => {
+            await Promise.all(ProductsItems.map(async (item) => {
                 const formattedItem = {
+                    id: item.id,
                     name: item.name,
-                    quantity: item.quantity,
-                    cost: item.purchasePrice,
-                    sell: item.sellingPrice,
-                    sum: item.sum,
+                    sold: item.sold,
+                    cost: item.cost,
+                    client: item.client,
+                    paymentType: item.paymentType,
                     date: item.date
                 };
-                await axios.post("http://172.20.10.2:5000/Import", formattedItem);
-                await axios.delete(`http://172.20.10.2:5000/ImportHolder/${item.id}`);
+                await axios.post("http://172.18.0.55:5000/Export", formattedItem);
+                await axios.delete(`http://172.18.0.55:5000/ExportHolder/${item.id}`);
             }));
-            router.push("/pages/inventory/coming");
+            router.push("/pages/inventory/products");
         } catch (err) {
             console.error("Ошибка при сохранении товаров", err);
             alert("Ошибка при сохранении товаров");
         }
     };
+
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Client").then((res) => {
-            setMadecine(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
+        axios.get("http://172.18.0.55:5000/Client")
+            .then((res) => {
+                setMedecine(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }, [])
-    const totalQuantity = comingItems.reduce((acc, item) => acc + item.quantity, 0);
-    const totalSum = comingItems.reduce((acc, item) => acc + item.sum, 0);
+    const totalSum = ProductsItems.reduce((acc, item) => acc + Number(item.sold) * Number(item.cost), 0);
+    const totalSold = ProductsItems.reduce((acc, item) => acc + Number(item.sold), 0);
     return (
-        <div className=" w-full p-6 mt-8">
+        <div className="w-full p-6 mt-8">
             <div className="absolute top-4 right-4">
-                <Link href="/pages/inventory/coming/">
+                <Link href="/pages/inventory/products/">
                     <Image
                         src="/back-button.png"
                         width={32}
@@ -168,14 +175,16 @@ export default function MedicinesPage() {
             </div>
             <h1 className="text-4xl font-bold mb-4">продажа</h1>
 
-            <div className="w-full ">
-                <div className="grid grid-cols-2 md:grid-cols-6  gap-x-4 gap-y-4 ">
-                    <div >
+            <div className="w-full">
+                <div className="grid grid-cols-2 md:grid-cols-7 gap-x-4 gap-y-4">
+                    <div>
                         <label>Лек.</label>
                         <input
                             list="medicine-list"
                             type="text"
-                            onChange={(e) => setMedicineName(e.target.value)}
+                            title="Название лекарства"
+                            value={name}
+                            onChange={(e) => setname(e.target.value)}
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
                         <datalist id="medicine-list">
@@ -186,62 +195,67 @@ export default function MedicinesPage() {
                     </div>
                     <div>
                         <label>кол.</label>
-
-                        <input
-
-                            type="number"
-                            onChange={(e) =>
-                                setQuantity(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                            }
-                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
-                        />
-
-                    </div>
-                    <div>
-                        <label>ц. покуп. </label>
-
                         <input
                             type="number"
+                            title="Количество"
                             onChange={(e) =>
-                                setPurchasePrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                setsold(e.target.value === "" ? 0 : e.target.valueAsNumber)
                             }
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
                     </div>
                     <div>
-                        <label>ц. прод. </label>
-
+                        <label>ц. прод.</label>
                         <input
                             type="number"
+                            title="Цена"
                             onChange={(e) =>
-                                setSellingPrice(e.target.value === "" ? 0 : e.target.valueAsNumber)
+                                setcost(e.target.value === "" ? 0 : e.target.valueAsNumber)
                             }
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
                     </div>
                     <div>
-                        <label>сумма.</label>
-
+                        <label>Сумма</label>
                         <input
                             type="number"
-                            onChange={(e) =>
-                                setSum(e.target.value === "" ? 0 : e.target.valueAsNumber)
-                            }
+                            title="Сумма"
+                            value={cost * sold}
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                            readOnly
+                        />
+                    </div>
+                    <div>
+                        <label>клиент</label>
+                        <input
+                            type="text"
+                            title="Клиент"
+                            value={client}
+                            onChange={(e) => setClient(e.target.value)}
+                            className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
+                        />
+                    </div>
+                    <div>
+                        <label>Тип оплаты</label>
+                        <input
+                            type="text"
+                            title="Тип оплаты"
+                            value={paymentType}
+                            onChange={(e) => setPaymentType(e.target.value)}
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
                     </div>
                     <div>
                         <label>дата.</label>
-
                         <input
                             type="text"
+                            title="Дата"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
                     </div>
                 </div>
-
             </div>
             <div className="flex justify-end w-full mt-5">
                 {editingId === null ? (
@@ -261,43 +275,46 @@ export default function MedicinesPage() {
                 )}
             </div>
 
-            <p className="mb-2">Количество лекарств: {comingItems.length}</p>
+            <p className="mb-2">Количество лекарств: {ProductsItems.length}</p>
 
             <div className="overflow-x-auto w-full max-w-screen">
                 <table className="min-w-full divide-y divide-gray-200 border">
                     <thead className="bg-gray-50">
                         <tr>
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ID</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Название</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Количество</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Закуп. Цена</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Прод. Цена</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Сумма</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Дата</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Действия</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Лек.</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Кол.</th>
+                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Цена</th>
+                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Сумма</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">клиент</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">Типоплаты</th>
+                            <th className="px-4 py-2 text-right text-sm font-medium text-gray-500">Дата</th>
+                            <th className="px-4 py-2"></th>
                         </tr>
                         <tr>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ОБЩИЙ:</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">{totalQuantity}</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">{totalSum}</th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
-                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500"></th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-500">ОБЩИЙ</th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2">{isNaN(totalSold) ? 0 : totalSold}</th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2 text-right">{isNaN(totalSum) ? 0 : totalSum}</th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2"></th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y w-full divide-gray-200">
-                        {comingItems.map((item) => (
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {ProductsItems.map((item) => (
                             <tr key={item.id}>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.id}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.name}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.quantity}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.purchasePrice}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sellingPrice}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sum}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sold}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.cost}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{(item.sold) * (item.cost)}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.client}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.paymentType}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-right">
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 text-right">
                                     <button onClick={() => handleEdit(item)} className="mr-2" title="Редактировать">
                                         <Image
                                             src="/edit.png"
