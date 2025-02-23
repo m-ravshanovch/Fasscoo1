@@ -129,6 +129,15 @@
       "sell": 2222,
       "sum": 0,
       "date": "2025-02-25"
+    },
+    {
+      "id": "b354",
+      "name": "muhammadqodir",
+      "quantity": 30,
+      "cost": 200,
+      "sell": 200,
+      "sum": 0,
+      "date": "2025-02-23"
     }
   ],
   "ImportHolder": [],
