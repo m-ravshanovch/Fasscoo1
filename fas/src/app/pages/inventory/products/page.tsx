@@ -19,9 +19,10 @@ export default function Home() {
     const [search, setSearch] = useState("")
     const [dateFilter, setDateFilter] = useState("")
     const [goingData, setGoingData] = useState<productsItem[]>([])
-
+    const [client, setClient] = useState("")
+    const [suggestClient, setSuggestClient] = useState<{name:string}[]>([])
     useEffect(() => {
-        axios.get("http://172.18.0.55:5000/Export")
+        axios.get("http://172.20.10.2:5000/Export")
             .then((res) => {
                 // Map the fields so that the procurement price (cost) is taken from "cost"
                 // and sale price (cost) defaults to "sell" if available, otherwise fallback to "cost".
@@ -39,15 +40,25 @@ export default function Home() {
 
     const filteredData = goingData.filter((item) => {
         const itemName = item.name || ""
+        const clientName = item.client || ""
         const matchesName = itemName.toLowerCase().includes(search.toLowerCase())
+        const clientFilter = clientName.toLowerCase().includes(client.toLowerCase())
         const itemDate = item.date || ""
         const matchesDate = dateFilter ? itemDate.includes(dateFilter) : true
-        return matchesName && matchesDate
+        return matchesName && matchesDate && clientFilter
     })
 
     const totalSum = filteredData.reduce((acc, item) => acc + item.sold*item.cost, 0)
     const totalSold = filteredData.reduce((acc, item) => acc + item.sold, 0)
+    
 
+    useEffect(()=>{
+        axios.get("http://172.20.10.2:5000/Client").then((res)=>{
+            setSuggestClient(res.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    },[])
     return (
         <div className="md:p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
             <div className="w-full flex justify-end">
@@ -78,6 +89,18 @@ export default function Home() {
                     onChange={e => setDateFilter(e.target.value)}
                     className="border-2 border-[#0D1633] rounded-md w-64 py-1 text-center"
                 />
+                <input
+                    type="text"
+                    list="client"
+                    placeholder="Фильтр по client"
+                    onChange={e => setClient(e.target.value)}
+                    className="border-2 border-[#0D1633] rounded-md w-64 py-1 text-center"
+                />
+                <datalist id="client">
+                    {suggestClient.map((res,i)=>(
+                        <option key={i} value={res.name}></option>
+                    ))} 
+                </datalist>
 
                 <button className="px-3 bg-[#0D1633] text-white rounded-md">
                     <Link href={'/pages/inventory/products/productsAdd'} className="w-44 text-xl py-1 block active:opacity-80">

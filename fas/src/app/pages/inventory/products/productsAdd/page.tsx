@@ -28,9 +28,11 @@ export default function MedicinesPage() {
     const [ProductsItems, setProductsItems] = useState<productsItem[]>([]);
     const [editingId, setEditingId] = useState<number | string | null>(null);
     const [madecine, setMedecine] = useState<{ name: string }[]>([]);
+    const [clientS, setClientS] = useState<{ name: string }[]>([]);
+    const [payType, setPayType] = useState<{ name: string }[]>([]);
 
     useEffect(() => {
-        axios.get("http://172.18.0.55:5000/ExportHolder")
+        axios.get("http://172.20.10.2:5000/ExportHolder")
             .then((response) => {
                 const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; sold: number; sum: number; date: string }) => ({
                     ...item,
@@ -53,7 +55,7 @@ export default function MedicinesPage() {
                 date,
             };
 
-            axios.post("http://172.18.0.55:5000/ExportHolder", newItem)
+            axios.post("http://172.20.10.2:5000/ExportHolder", newItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -74,7 +76,7 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number | string) => {
-        axios.delete(`http://172.18.0.55:5000/ExportHolder/${id}`)
+        axios.delete(`http://172.20.10.2:5000/ExportHolder/${id}`)
             .then(() => {
                 setProductsItems((prev) => prev.filter((item) => item.id !== id));
             })
@@ -105,7 +107,7 @@ export default function MedicinesPage() {
                 date
             };
 
-            axios.put(`http://172.18.0.55:5000/ExportHolder/${editingId}`, updatedItem)
+            axios.put(`http://172.20.10.2:5000/ExportHolder/${editingId}`, updatedItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -140,8 +142,8 @@ export default function MedicinesPage() {
                     paymentType: item.paymentType,
                     date: item.date
                 };
-                await axios.post("http://172.18.0.55:5000/Export", formattedItem);
-                await axios.delete(`http://172.18.0.55:5000/ExportHolder/${item.id}`);
+                await axios.post("http://172.20.10.2:5000/Export", formattedItem);
+                await axios.delete(`http://172.20.10.2:5000/ExportHolder/${item.id}`);
             }));
             router.push("/pages/inventory/products");
         } catch (err) {
@@ -151,9 +153,27 @@ export default function MedicinesPage() {
     };
 
     useEffect(() => {
-        axios.get("http://172.18.0.55:5000/Client")
+        axios.get("http://172.20.10.2:5000/Medicine")
             .then((res) => {
                 setMedecine(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+    useEffect(() => {
+        axios.get("http://172.20.10.2:5000/Client")
+            .then((res) => {
+                setClientS(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
+    useEffect(() => {
+        axios.get("http://172.20.10.2:5000/PaymentType")
+            .then((res) => {
+                setPayType(res.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -230,20 +250,32 @@ export default function MedicinesPage() {
                         <input
                             type="text"
                             title="Клиент"
+                            list="client"
                             value={client}
                             onChange={(e) => setClient(e.target.value)}
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
+                        <datalist id="client">
+                            {clientS.map((res,i)=>(
+                                <option key={i} value={res.name}></option>
+                            ))}
+                        </datalist>
                     </div>
                     <div>
                         <label>Тип оплаты</label>
                         <input
                             type="text"
                             title="Тип оплаты"
+                            list="payType"
                             value={paymentType}
                             onChange={(e) => setPaymentType(e.target.value)}
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
+                        <datalist id="payType">
+                            {payType.map((res,i)=>(
+                                <option key={i} value={res.name}></option>
+                            ))}
+                        </datalist>
                     </div>
                     <div>
                         <label>дата.</label>
