@@ -310,7 +310,7 @@ export default function MedicinesPage() {
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.quantity}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.cost}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sell}</td>
-                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sum}</td>
+                                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.sum*item.quantity}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
                                 <td className="px-4 py-2 whitespace-nowrap text-sm text-right">
                                     <button onClick={() => handleEdit(item)} className="mr-2" title="Редактировать">
