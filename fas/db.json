@@ -9,7 +9,7 @@
   "Medicine": [
     {
       "id": "0024",
-      "name": "kupin"
+      "name": "Qupen"
     },
     {
       "id": "d556",
@@ -32,6 +32,10 @@
     {
       "id": "fcfd",
       "name": "muhammadqodir"
+    },
+    {
+      "id": "dfc3",
+      "name": "Qobil Toshk"
     }
   ],
   "PaymentType": [
@@ -46,6 +50,10 @@
     {
       "id": "9ea6",
       "name": "apteka"
+    },
+    {
+      "id": "8933",
+      "name": "Schotdan"
     }
   ],
   "Import": [
@@ -165,6 +173,24 @@
       "sell": 2233,
       "sum": 696000,
       "date": "2025-02-23"
+    },
+    {
+      "id": "bb9e",
+      "name": "parasitamol",
+      "quantity": 10,
+      "cost": 9000,
+      "sell": 12000,
+      "sum": 90000,
+      "date": "2025-02-24"
+    },
+    {
+      "id": "29aa",
+      "name": "Qupen",
+      "quantity": 2,
+      "cost": 12000,
+      "sell": 15000,
+      "sum": 24000,
+      "date": "2025-02-24"
     }
   ],
   "ImportHolder": [],
@@ -276,6 +302,15 @@
       "client": "aziz",
       "paymentType": "karta",
       "date": "2025-02-23"
+    },
+    {
+      "id": "e267",
+      "name": "Qupen",
+      "sold": 2,
+      "cost": 12000,
+      "client": "Qobil Toshk",
+      "paymentType": "Schotdan",
+      "date": "2025-02-24"
     }
   ],
   "ExportHolder": []
