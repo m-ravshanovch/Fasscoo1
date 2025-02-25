@@ -22,7 +22,7 @@ export default function Home() {
     const [comingData, setComingData] = useState<ComingItem[]>([])
 
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/Import")
+        axios.get("http://172.20.10.2:5000/Import")
             .then((res) => {
                 // map the fields so that cost => purchasePrice and sell => sellingPrice
                 const mappedData = res.data.map((item: ComingItem) => ({
@@ -72,16 +72,16 @@ export default function Home() {
                 />
             </div>
 
-            <div className="w-full flex justify-center gap-x-5 mt-4">
+            <div className="w-full grid grid-cols-2 gap-x-5 mt-4 px-5">
                 <input
                     type="text" 
                     placeholder="Фильтр по дате"
                     onChange={e => setDateFilter(e.target.value)}
-                    className="border-2 border-[#0D1633] rounded-md w-64 py-1 text-center"
+                    className="border-2 border-[#0D1633] rounded-md w-full py-1 text-center"
                 />
 
                 <button className="px-3 bg-[#0D1633] text-white rounded-md">
-                    <Link href={'/pages/inventory/coming/comingAdd'} className="w-44 text-xl py-1 block active:opacity-80">
+                    <Link href={'/pages/inventory/coming/comingAdd'} className="w-full text-xl py-1 block active:opacity-80">
                         добавить
                     </Link>
                 </button>

@@ -18,7 +18,7 @@ export default function Home() {
     const [importData, setImportData] = useState<ImportData[]>([])
 
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/Import/")
+        axios.get("http://172.20.10.2:5000/Import/")
             .then((res) => {
                 // If your server returns { Import: [...] }, use:
                 // setImportData(res.data.Import)
@@ -40,14 +40,14 @@ export default function Home() {
                     <Link href={'/pages/inventory/inventoryPlus/'} className="px-3">+</Link>
                 </button>
             </div>
-            <div className="w-full place-items-center">
+            <div className="w-full place-items-center ">
                 <div className="font-bold text-4xl text-center">СКЛАД</div>
-                <div className="flex gap-x-5 justify-center mt-4">
-                    <button className="px-1 bg-[#0D1633] text-white rounded-md">
-                        <Link href={'/pages/inventory/coming/'} className="w-44 text-xl py-1 block active:opacity-80">приход</Link>
+                <div className="grid grid-cols-2 gap-x-3 mt-4 p-5 ">
+                    <button className=" bg-[#0D1633] text-white rounded-md text-center">
+                        <Link href={'/pages/inventory/coming/'} className=" text-xl  block active:opacity-80 text-center">приход</Link>
                     </button>
-                    <button className="px-3 bg-[#0D1633] text-white rounded-md">
-                        <Link href={'/pages/inventory/products/'} className="w-44 text-xl py-1 block active:opacity-80">продажа</Link>
+                    <button className=" bg-[#0D1633] text-white rounded-md text-center">
+                        <Link href={'/pages/inventory/products/'} className=" text-xl block active:opacity-80">продажа</Link>
                     </button>
                 </div>
             </div>

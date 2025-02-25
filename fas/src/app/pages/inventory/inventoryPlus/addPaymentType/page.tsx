@@ -14,7 +14,7 @@ export default function PaymentTypePage() {
     const [paymentTypeName, setPaymentTypeName] = useState("");
     const [paymentTypes, setPaymentTypes] = useState<PaymentType[]>([]);
     const [editingId, setEditingId] = useState<number | null>(null);
-    const API_URL = "http://192.168.0.105:5000/PaymentType";
+    const API_URL = "http://172.20.10.2:5000/PaymentType";
 
     // Fetch payment types on component mount
     useEffect(() => {

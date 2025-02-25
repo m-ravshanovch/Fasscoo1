@@ -32,7 +32,7 @@ export default function MedicinesPage() {
     const [payType, setPayType] = useState<{ name: string }[]>([]);
 
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/ExportHolder")
+        axios.get("http://172.20.10.2:5000/ExportHolder")
             .then((response) => {
                 const items = response.data.map((item: { cost: number; sell: number; id: number | string; name: string; sold: number; sum: number; date: string }) => ({
                     ...item,
@@ -55,7 +55,7 @@ export default function MedicinesPage() {
                 date,
             };
 
-            axios.post("http://192.168.0.105:5000/ExportHolder", newItem)
+            axios.post("http://172.20.10.2:5000/ExportHolder", newItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -76,7 +76,7 @@ export default function MedicinesPage() {
     };
 
     const handleRemove = (id: number | string) => {
-        axios.delete(`http://192.168.0.105:5000/ExportHolder/${id}`)
+        axios.delete(`http://172.20.10.2:5000/ExportHolder/${id}`)
             .then(() => {
                 setProductsItems((prev) => prev.filter((item) => item.id !== id));
             })
@@ -107,7 +107,7 @@ export default function MedicinesPage() {
                 date
             };
 
-            axios.put(`http://192.168.0.105:5000/ExportHolder/${editingId}`, updatedItem)
+            axios.put(`http://172.20.10.2:5000/ExportHolder/${editingId}`, updatedItem)
                 .then((response) => {
                     const responseItem = {
                         ...response.data,
@@ -142,8 +142,8 @@ export default function MedicinesPage() {
                     paymentType: item.paymentType,
                     date: item.date
                 };
-                await axios.post("http://192.168.0.105:5000/Export", formattedItem);
-                await axios.delete(`http://192.168.0.105:5000/ExportHolder/${item.id}`);
+                await axios.post("http://172.20.10.2:5000/Export", formattedItem);
+                await axios.delete(`http://172.20.10.2:5000/ExportHolder/${item.id}`);
             }));
             router.push("/pages/inventory/products");
         } catch (err) {
@@ -153,7 +153,7 @@ export default function MedicinesPage() {
     };
 
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/Medicine")
+        axios.get("http://172.20.10.2:5000/Medicine")
             .then((res) => {
                 setMedecine(res.data)
             })
@@ -162,7 +162,7 @@ export default function MedicinesPage() {
             })
     }, [])
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/Client")
+        axios.get("http://172.20.10.2:5000/Client")
             .then((res) => {
                 setClientS(res.data)
             })
@@ -171,7 +171,7 @@ export default function MedicinesPage() {
             })
     }, [])
     useEffect(() => {
-        axios.get("http://192.168.0.105:5000/PaymentType")
+        axios.get("http://172.20.10.2:5000/PaymentType")
             .then((res) => {
                 setPayType(res.data)
             })
@@ -208,7 +208,7 @@ export default function MedicinesPage() {
                             className="border-2 w-full border-[#0D1633] rounded-lg text-sm lg:text-xl p-1 font-semibold"
                         />
                         <datalist id="medicine-list">
-                            {madecine && madecine.map((res, i) => (
+                            {madecine.map((res, i) => (
                                 <option key={i} value={res.name}></option>
                             ))}
                         </datalist>
