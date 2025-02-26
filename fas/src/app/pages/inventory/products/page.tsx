@@ -3,18 +3,17 @@ import axios from "axios"
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-
-// Updated interface to include an optional cost field.
+import * as XLSX from 'xlsx'
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 interface productsItem {
     id: number | string,
     name: string,
-    cost: number,          // This now represents the sale price in the table.
+    cost: number,         
     sold: number,
     client: string,
     paymentType: string,
-    date: string, // Optional field for the procurement price.
+    date: string, 
 }
-
 export default function Home() {
     const [search, setSearch] = useState("")
     const [dateFilter, setDateFilter] = useState("")
@@ -24,8 +23,6 @@ export default function Home() {
     useEffect(() => {
         axios.get("http://172.20.10.2:5000/Export")
             .then((res) => {
-                // Map the fields so that the procurement price (cost) is taken from "cost"
-                // and sale price (cost) defaults to "sell" if available, otherwise fallback to "cost".
                 const mappedData = res.data.map((item: productsItem) => ({
                     ...item,
                     cost: item.cost,
@@ -59,6 +56,26 @@ export default function Home() {
             console.log(err)
         })
     }, [])
+
+
+     const exportToExcel = () => {
+            const exportData = filteredData.map(item => ({
+                ID: item.id,
+                Name: item.name,
+                PaymentType: item.paymentType,
+                Cost: item.cost,
+                Client: item.client,
+                Sold : item.sold,
+                Sum: item.sold * item.cost,
+                Date: item.date,
+            }));
+    
+            const ws = XLSX.utils.json_to_sheet(exportData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Import Data");
+    
+            XLSX.writeFile(wb, "import_data.xlsx");
+        };
     return (
         <div className="md:p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
             <div className="w-full flex justify-end">
@@ -102,11 +119,17 @@ export default function Home() {
                     ))}
                 </datalist>
             </div>
-            <div className="w-full flex justify-end gap-x-5 mt-4 px-5">
+            <div className="w-full flex justify-center items-center md:justify-end gap-x-5 mt-4 px-5">
                 <button className="px-3 bg-[#0D1633] text-white rounded-md">
                     <Link href={'/pages/inventory/products/productsAdd'} className="text-xl py-1 block active:opacity-80">
                         добавить
                     </Link>
+                </button>
+                <button
+                    onClick={exportToExcel}  
+                    className=" rounded-lg  bg-[#0D1633] text-white py-1 px-4 text-lg"
+                >
+                    <CloudDownloadIcon/>
                 </button>
             </div>
             <div className="overflow-x-auto w-full max-w-full">
