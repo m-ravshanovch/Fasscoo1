@@ -191,6 +191,60 @@
       "sell": 15000,
       "sum": 24000,
       "date": "2025-02-24"
+    },
+    {
+      "id": "f33e",
+      "name": "parasitamol",
+      "quantity": 21,
+      "cost": 123,
+      "sell": 123123,
+      "sum": 2583,
+      "date": "2025-02-26"
+    },
+    {
+      "id": "db2e",
+      "name": "parasitamol",
+      "quantity": 21,
+      "cost": 123,
+      "sell": 123123,
+      "sum": 2583,
+      "date": "2025-02-26"
+    },
+    {
+      "id": "5a28",
+      "name": "parasitamol",
+      "quantity": 21,
+      "cost": 123,
+      "sell": 123,
+      "sum": 2583,
+      "date": "2025-02-26"
+    },
+    {
+      "id": "6a32",
+      "name": "parasitamol",
+      "quantity": 21,
+      "cost": 123,
+      "sell": 123123,
+      "sum": 2583,
+      "date": "2025-02-26"
+    },
+    {
+      "id": "a9a0",
+      "name": "sitramon",
+      "quantity": 123,
+      "cost": 31,
+      "sell": 132,
+      "sum": 3813,
+      "date": "2025-02-26"
+    },
+    {
+      "id": "d55a",
+      "name": "sitramon",
+      "quantity": 231131,
+      "cost": 123,
+      "sell": 123,
+      "sum": 28429113,
+      "date": "2025-02-26"
     }
   ],
   "ImportHolder": [],
