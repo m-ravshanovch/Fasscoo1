@@ -8,11 +8,12 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 interface ImportData {
     id: number | string;
     name: string;
-    quantity: number;
-    cost: number;
-    sell: number;
-    sum: number;
-    date: string;
+    // quantity: number;
+    // cost: number;
+    unit_price: number;
+    // sell: number;
+    // sum: number;
+    // date: string;
 }
 
 export default function Home() {
@@ -20,7 +21,7 @@ export default function Home() {
     const [importData, setImportData] = useState<ImportData[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import/")
+        axios.get("https://medicine-store.fassco.uz/api/v1/accounting/medicines/limit=100&offset=0")
             .then((res) => {
                 const reversedData = res.data.reverse();
                 setImportData(reversedData);
@@ -38,11 +39,12 @@ export default function Home() {
         const exportData = filteredData.map(item => ({
             ID: item.id,
             Name: item.name,
-            Quantity: item.quantity,
-            Cost: item.cost,
-            Sell: item.sell,
-            Sum: item.sum,
-            Date: item.date,
+            Unit_Price: item.unit_price,
+            // Quantity: item.quantity,
+            // Cost: item.cost,
+            // Sell: item.sell,
+            // Sum: item.sum,
+            // Date: item.date,
         }));
 
         const ws = XLSX.utils.json_to_sheet(exportData);
@@ -104,11 +106,11 @@ export default function Home() {
                                 <td className="border-2">
                                     {res.name}
                                 </td>
-                                <td className="border-2 text-center">
+                                {/* <td className="border-2 text-center">
                                     {res.quantity}
-                                </td>
+                                </td> */}
                                 <td className="border-2 text-right">
-                                    {res.sum} <span>sum</span>
+                                    {res.unit_price} <span>sum</span>
                                 </td>
                             </tr>
                         ))}
