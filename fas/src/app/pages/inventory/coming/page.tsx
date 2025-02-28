@@ -5,16 +5,15 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 import * as XLSX from 'xlsx'
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+
 interface ComingItem {
-    id: number | string,
-    name: string,
-    quantity: number,
-    purchasePrice: number,
-    sellingPrice: number,
-    sum: number,
-    cost: number,
-    sell: number,
-    date: string
+    id: number;
+    name: string;
+    quantity: number;
+    purchasePrice: number;
+    sellingPrice: number;
+    sum: number;
+    date: string;
 }
 
 export default function Home() {
@@ -23,38 +22,47 @@ export default function Home() {
     const [comingData, setComingData] = useState<ComingItem[]>([])
 
     useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Import")
+        axios.get("https://medicine-store.fassco.uz/api/v1/accounting/medicine-arrivals/?limit=100&offset=0")
             .then((res) => {
-                const mappedData = res.data.map((item: ComingItem) => ({
-                    ...item,
-                    purchasePrice: item.cost,
-                    sellingPrice: item.sell
-                }))
-                setComingData(mappedData)
-                console.log(mappedData)
+                if (res.data && res.data.results) {
+                    const mappedData: ComingItem[] = res.data.results.map((item: any) => ({
+                        id: item.id,
+                        name: item.medicine_name,
+                        quantity: item.quantity,
+                        purchasePrice: parseFloat(item.unit_buy_price),  // Convert string to number
+                        sellingPrice: parseFloat(item.unit_sell_price), // Convert string to number
+                        sum: parseFloat(item.total_buy_price), // Convert string to number
+                        date: new Date(item.arrival_date).toISOString().split("T")[0] // Convert to YYYY-MM-DD
+                    }))
+                    setComingData(mappedData)
+                }
             })
             .catch((err) => {
-                console.log(err)
+                console.error(err)
             })
     }, [])
 
     const filteredData = comingData.filter((item) => {
         const itemName = item.name || ""
         const matchesName = itemName.toLowerCase().includes(search.toLowerCase())
-        const itemDate = item.date || ""
-        const matchesDate = dateFilter ? itemDate.includes(dateFilter) : true
+        
+        const matchesDate = dateFilter
+            ? new Date(item.date).toISOString().split("T")[0] === dateFilter
+            : true;
+
         return matchesName && matchesDate
     })
 
-    const totalSum = filteredData.reduce((acc, item) => acc + item.quantity * item.purchasePrice, 0)
+    const totalSum = filteredData.reduce((acc, item) => acc + item.sum, 0)
     const totalSold = filteredData.reduce((acc, item) => acc + item.quantity, 0)
+
     const exportToExcel = () => {
         const exportData = filteredData.map(item => ({
             ID: item.id,
             Name: item.name,
             Quantity: item.quantity,
-            Cost: item.cost,
-            Sell: item.sell,
+            Purchase_Price: item.purchasePrice,
+            Selling_Price: item.sellingPrice,
             Sum: item.sum,
             Date: item.date,
         }));
@@ -65,6 +73,7 @@ export default function Home() {
 
         XLSX.writeFile(wb, "import_data.xlsx");
     };
+
     return (
         <div className="md:p-2 place-items-center w-full grid grid-cols-1 gap-y-3 py-5">
             <div className="w-full flex justify-end">
@@ -90,8 +99,7 @@ export default function Home() {
 
             <div className="w-full grid grid-cols-2 gap-x-5 mt-4 px-5">
                 <input
-                    type="text"
-                    placeholder="Фильтр по дате"
+                    type="date"
                     onChange={e => setDateFilter(e.target.value)}
                     className="border-2 border-[#0D1633] rounded-md w-full py-1 text-center"
                 />
@@ -102,6 +110,7 @@ export default function Home() {
                     </Link>
                 </button>
             </div>
+
             <div className="w-full grid grid-cols-1 gap-x-5 mt-4 place-items-end px-5">
                 <button
                     onClick={exportToExcel}  

@@ -21,15 +21,22 @@ export default function Home() {
     const [importData, setImportData] = useState<ImportData[]>([])
 
     useEffect(() => {
-        axios.get("https://medicine-store.fassco.uz/api/v1/accounting/medicines/limit=100&offset=0")
+        axios.get("https://medicine-store.fassco.uz/api/v1/accounting/medicines/?limit=100&offset=0")
             .then((res) => {
-                const reversedData = res.data.reverse();
-                setImportData(reversedData);
+                if (res.data && res.data.results) {  // ✅ Fix check from "result" to "results"
+                    const extractedData = res.data.results.map((item: any) => ({
+                        id: item.id,
+                        name: item.name,
+                        unit_price: parseFloat(item.unit_price), // ✅ Ensure conversion to number
+                    }));
+    
+                    setImportData(extractedData);
+                }
             })
             .catch((err) => {
-                console.log(err)
-            })
-    }, [])
+                console.error("Error fetching data:", err);
+            });
+    }, []);    
 
     const filteredData = importData.filter((item) => 
         item?.name?.toLowerCase().includes(search.toLowerCase()) || false
@@ -93,7 +100,7 @@ export default function Home() {
                         <tr>
                             <th>ID</th>
                             <th className="text-left">ОБЩИЙ</th>
-                            <th>Кол-во</th>
+                            {/* <th>Кол-во</th> */}
                             <th className="text-right">Итого sum</th>
                         </tr>
                     </thead>
