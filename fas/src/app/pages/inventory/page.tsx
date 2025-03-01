@@ -24,7 +24,7 @@ export default function Home() {
         axios.get("https://medicine-store.fassco.uz/api/v1/accounting/medicines/?limit=100&offset=0")
             .then((res) => {
                 if (res.data && res.data.results) {  // ✅ Fix check from "result" to "results"
-                    const extractedData = res.data.results.map((item: any) => ({
+                    const extractedData = res.data.results.map((item: { id: number | string; name: string; unit_price: string }) => ({
                         id: item.id,
                         name: item.name,
                         unit_price: parseFloat(item.unit_price), // ✅ Ensure conversion to number

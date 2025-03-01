@@ -1,41 +1,39 @@
 'use client';
 
 import Image from "next/image";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-
+const api = "https://medicine-store.fassco.uz/api/v1/users/api/token/"
 export default function Home() {
-    interface User {
-        username: string;
-        password: string;
-    }
-    const [users, setUsers] = useState<User[]>([]);
-
-    useEffect(() => {
-        axios.get("http://172.20.10.2:5000/Login")
-            .then((res) => setUsers(res.data))
-            .catch((err) => console.error(err));
-    }, []);
-    const username = users.length > 0 ? users[0].username : '';
-    const password = users.length > 0 ? users[0].password : '';
-
+    const [users, setUsers] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const router = useRouter();
-
-    const handleRedirect = () => {
-        router.push("/pages/inventory/");
-    };
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const [csrfToken, setCsrfToken] = useState("TPM0W1rgNVC8DUDEooG7vwVVZLbhr1yGRlDTKTEHaL6RP9rw7eFOFvIiLhM6KtQu"); 
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const login = form.login.value;
-        const pass = form.password.value;
-        if (login === username && pass === password) {
-            handleRedirect();
-        } else {
-            alert("try again");
+        try {
+            const response = await axios.post(api, {
+                username: users,
+                password: password
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json',  
+                    'X-CSRFTOKEN': csrfToken  
+                }
+            })
+            console.log(response.data)
+            if (response.data && response.data.token) {
+                router.push("/pages/inventory/");
+            } else {
+                setError("Invalid credentials")
+            }
+        } catch (err) {
+            setError("Invalid credentials")
+            console.error(err);
         }
     }
 
@@ -50,11 +48,11 @@ export default function Home() {
                 <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center w-full gap-6">
                     <div className="flex flex-col items-center justify-center w-full gap-1">
                         <label htmlFor="login" className="text-xs text-start w-full font-semibold">Логин</label>
-                        <input type="text" name="login" id="login" className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2" />
+                        <input type="text" onChange={e => setUsers(e.target.value)} name="login" id="login" className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2" />
                     </div>
                     <div className="flex flex-col items-center justify-center w-full gap-1">
                         <label htmlFor="password" className="text-xs text-start w-full font-semibold">Пароль</label>
-                        <input type="password" name="password" id="password" className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2" />
+                        <input type="password" onChange={e => setPassword(e.target.value)} name="password" id="password" className="border-[#0D1633] border-2 rounded-lg text-xl w-full p-2" />
                     </div>
                     <div className="flex flex-col items-center justify-center w-full font-semibold">
                         <button type="submit" className="border-[#0D1633] bg-[#0D1633] border-2 rounded-lg text-white text-xl w-full mt-4 p-2">Войти</button>
