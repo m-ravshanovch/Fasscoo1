@@ -14,7 +14,7 @@ export default function MedicinesPage() {
     const [medicineName, setMedicineName] = useState("");
     const [medicines, setMedicines] = useState<Medicine[]>([]);
     const [editingId, setEditingId] = useState<number | null>(null);
-    const API_URL = "http://172.20.10.2:5000/Medicine";
+    const API_URL = "https://medicine-store.fassco.uz/api/v1/accounting/medicines/";
 
     // Fetch medicines on component mount
     useEffect(() => {
@@ -24,11 +24,17 @@ export default function MedicinesPage() {
     const fetchMedicines = async () => {
         try {
             const response = await axios.get(API_URL);
-            setMedicines(response.data);
+            console.log(response.data); // Log the response to inspect its structure
+    
+            // If the response data is an object that contains the medicines array
+            const medicinesData = Array.isArray(response.data) ? response.data : response.data.medicines || [];
+            
+            setMedicines(medicinesData);
         } catch (error) {
             console.error("Error fetching medicines:", error);
         }
     };
+    
 
     const handleAdd = async () => {
         if (medicineName.trim()) {
